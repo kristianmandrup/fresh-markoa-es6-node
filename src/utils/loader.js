@@ -1,6 +1,6 @@
 'use strict';
 
-var utils = require('./index');
+import loaders from './loaders';
 
 var dirs = {
   fixture: 'test/fixtures',
@@ -15,11 +15,11 @@ function loader(type){
 
 // Loads a given resource
 export default {
-  retriever: utils.retriever,
+  loader: loader
   fixture: loader('fixture'),
   config: loader('config'),
   // load JSON from REST endpoint via HTTP GET (Ajax)
   rest: {
-    block: utils.ajax('block') // from CMS
+    block: loader.ajax('block') // from CMS
   }
 };

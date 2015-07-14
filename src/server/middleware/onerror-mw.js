@@ -8,7 +8,7 @@ var errorTemplates = {
   default: 'views/pages/error/error.marko'
 };
 
-export default class OnErrorMw {
+export class OnErrorMw {
   constructor(config) {
     super(config);
   }

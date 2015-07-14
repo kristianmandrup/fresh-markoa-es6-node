@@ -1,16 +1,15 @@
-export class Executer {
-  constructor(server) {
-    this.server = server;
+export default class Executer {
+  constructor(config) {
+    this.config = config;
   }
 
   log(msg) {
-    this.server.logger.log(msg);
+    this.config.logger.log(msg);
   }
 
   start(options = {}) {
-    this.log('start server:', options);
-
-    var port = options.port || server.port;
+    var port = options.port || this.config.port;
+    this.log('start server:', port);
 
     server.app.listen(port, function() {
       this.log(`Koa appplication listens on port ${port}`);
@@ -21,7 +20,7 @@ export class Executer {
   }
 
   stop() {
-    this.log('stopping server');
+    this.log('stopping server: NOT IMPLEMENTED');
     // TODO: there is a better way to gracefully shut down!
     // https://github.com/koajs/koa/issues/328
   }

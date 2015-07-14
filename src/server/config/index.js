@@ -1,4 +1,9 @@
 'use strict';
 
-export * from './views-conf';
-export * from './render-conf';
+export views from './views-conf';
+export render from './render-conf';
+
+export default {
+  views: views,
+  render: render
+}

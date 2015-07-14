@@ -1,3 +1,3 @@
 'use strict';
 
-export default require('./server');
+export * from './server';

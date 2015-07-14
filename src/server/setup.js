@@ -1,7 +1,7 @@
 'use strict';
 
-import {koa} from 'koa';
-import {defaults} from './defaults';
+import koa from 'koa';
+import defaults from './defaults';
 // import middleware from './middleware';
 
 // Usage new Setup(server, {})
@@ -20,8 +20,8 @@ module.exports = class Setup {
   // app configuration
   configureApp() {
     server.app = koa();
-
     // mount all middleware
-    return middleware.mountAll(this.config);
+    this.config.middleware.mountAll(this.config);
+    return this.
   }
 };
