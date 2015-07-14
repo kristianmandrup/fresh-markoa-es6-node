@@ -1,28 +1,26 @@
 'use strict';
 
 import Setup from './setup';
+import Executer from './executer';
+import config from './config';
+import defaults from './defaults';
+import marko from './marko';
+import middleware from './middleware';
+import render from './render';
+import routes from './routes';
+import state from './state';
 
 var extend = Object.assign;
 
-
-import config from './config';
-import executer from './executer';
-import render from './render';
-import routes from './routes';
-import marko from './marko';
-import middleware from './middleware';
-import state from './state';
-import setup from './setup';
-
 export default {
   config: config,
-  executor: executer,
+  executor: Executer,
   render: render,
   routes: routes,
   marko: marko,
   middleware: middleware,
   state: state,
-  setup: setup
+  setup: Setup
 }
 
 export class Server {

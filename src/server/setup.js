@@ -5,7 +5,7 @@ import defaults from './defaults';
 // import middleware from './middleware';
 
 // Usage new Setup(server, {})
-module.exports = class Setup {
+export default class Setup {
   constructor(config) {
     this.config = config;
 
