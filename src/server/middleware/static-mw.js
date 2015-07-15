@@ -12,8 +12,8 @@ export default class StaticMw extends BaseMw {
     return this.config.statics;
   }
 
-  mount(config) {
-    this.app.use(serveStatic(this.statics.rootPath));
+  mount() {
+    this.use(serveStatic(this.statics.rootPath));
     return this;
   }
 }

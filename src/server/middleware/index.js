@@ -1,21 +1,34 @@
 'use strict';
 
-export default class Middleware {
+import Configurator from '../configurator';
+
+export default class Middleware extends Configurator {
   constructor(config) {
-    this.config = config;
+    super(config);
   }
 
   get middlewares() {
     return this.config.middlewares;
   }
 
+  get mounted() {
+    return this.config.mounted.middleware;
+  }
+
+  set mounted(mws) {
+    this.config.mounted.middleware = mws;
+  }
+
   mountAll() {
     var mws = {};
     // use Object.keys ?
-    for (mw in this.config.middlewares) {
-      middleware = mws[mw] = require(`./${ms}-mw`);
-      middleware.mount(server, opts);
+    for (let name in this.config.middlewares) {
+      // can we use node require here!?
+      var middleware = mws[name] = require(`./${name}-mw`);
+      middleware.mount(this.config);
     }
+    this.mounted = mws;
+
     return this;
   }
 }

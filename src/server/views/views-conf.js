@@ -1,5 +1,7 @@
 'use strict';
 
+import path from 'path';
+
 function resolvePath(root, folder) {
   return path.resolve(path.join(root, folder));
 }
@@ -18,7 +20,7 @@ export default class ViewsConfig {
 
     // configure rootPath for views using server root path
   resolveViewsRootPath() {
-    this.views.rootPath = resolvePath(this.config.root, views.root);
+    this.views.rootPath = resolvePath(this.config.root, this.views.root);
   }
 
   get resolveRoot() {
@@ -49,7 +51,7 @@ export default class ViewsConfig {
     // dynamically configure path to each page (in views)
     // allows dev to override by mounting a different path
     for (let page of this.pages.active)
-      this.pages[page] = resolvePath(pages.rootPath, page);
+      this.pages[page] = resolvePath(this.pages.rootPath, page);
   }
 
   // allow override
@@ -62,10 +64,10 @@ export default class ViewsConfig {
   }
 
   configure() {
-    activatePages();
-    resolveViewRootPaths();
-    resolvePageTemplateRootPaths();
-    createPageTemplateFinder();
+    this.activatePages();
+    this.resolveViewRootPaths();
+    this.resolvePageTemplateRootPaths();
+    this.createPageTemplateFinder();
     return this;
   }
 }

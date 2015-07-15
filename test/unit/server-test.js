@@ -1,12 +1,14 @@
+'use strict';
+
 /* global Server */
 import Server from '../../src/index';
 
 describe('Server', function() {
-  'use strict';
+  it('exists', () => {
+    expect(Server).is.not.undefined;
+  });
 
-  it('exists', () => expect(Server).is.not.undefined );
-
-  context('with no config', () => {
+  describe('with no config', () => {
     var server = new Server();
     console.log('config', server.config);
 

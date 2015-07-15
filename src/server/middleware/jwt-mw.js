@@ -10,8 +10,7 @@ export default class JwtMw extends BaseMw {
 
   // http://www.sitepoint.com/using-json-web-tokens-node-js/
   mount() {
-    this.app
-      .use(jwt.decodeToken)
+    this.use(jwt.decodeToken)
       .use(jwt.authErrorHandler.unauthorizedAccess);
     return this;
   }

@@ -10,7 +10,7 @@ var middlewareList = [
   'static'
 ];
 
-import views from './views-defaults';
+import views from './views';
 import state from './state';
 
 export default {

@@ -3,7 +3,9 @@
 // https://github.com/ivpusic/koa-routing
 // https://github.com/alexmingoia/koa-router
 
-export default class RouteBuilder {
+import Configurator from '../configurator';
+
+export default class RouteBuilder extends Configurator {
   constructor(config) {
     super(config);
   }
@@ -30,18 +32,22 @@ export default class RouteBuilder {
     // response, pageName, pageData
     var ctx = this;
     return function*() {
-      this.render(this, ctx.name, ctx.appData(ctx.name));
-    }
+      yield this.render(this, ctx.name, ctx.appData(ctx.name));
+    };
   }
 
   get routeName() {
-    return `/${route || name}`
+    return this.route || this.name;
+  }
+
+  get routePath() {
+    return `/${this.routeName}`;
   }
 
   // TODO: use koa-router instead!
   buildRoute(name, route) {
     this.name = name;
     this.route = route;
-    this.app.get(this.routeName, this.renderPageFn);
+    this.app.get(this.routePath, this.renderPageFn);
   }
 }

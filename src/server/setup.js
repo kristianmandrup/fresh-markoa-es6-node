@@ -1,6 +1,6 @@
 'use strict';
 
-import Configurator from '../configurator';
+import Configurator from './configurator';
 import koa from 'koa';
 import defaults from './defaults';
 // import middleware from './middleware';

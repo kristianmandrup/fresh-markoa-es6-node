@@ -1,6 +1,6 @@
 'use strict';
 
-// import Setup from './setup';
+import Setup from './setup';
 // import Executer from './executer';
 // import defaults from './defaults';
 // import marko from './marko';

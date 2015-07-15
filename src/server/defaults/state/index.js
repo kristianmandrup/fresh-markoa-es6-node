@@ -1,7 +1,7 @@
 'use strict';
 
 import content from './content';
-import appData from './appData';
+import appData from './app-data';
 import globals from './globals';
 import pages from './pages';
 import providers from'./providers';

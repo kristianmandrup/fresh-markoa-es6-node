@@ -8,8 +8,9 @@ export default class ScssMw extends BaseMw {
     super(config);
   }
 
-  mount(server) {
-    this.app.use(scss({
+  mount(config) {
+    config = config || this.config;
+    this.use(scss({
       src: this.config.stylesheets.scss.srcPath,
       dest: this.config.static.stylesheets.path,
       debug: true,

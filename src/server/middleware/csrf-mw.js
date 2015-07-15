@@ -1,5 +1,6 @@
 'use strict';
 
+import BaseMw from './base-mw';
 import csrf from 'koa-csrf';
 import session from 'koa-session';
 
@@ -11,13 +12,16 @@ export default class CsrfMw extends BaseMw {
     super(config);
   }
 
+  get secrets() {
+    return this.config.secrets;
+  }
+
   mount() {
     this.validate();
-    app.keys = [server.secrets.csrf];
+    this.app.keys = [this.secrets.csrf];
     this.use(session());
-    csrf(app);
-    app
-      .use(csrf.middleware)
+    csrf(this.app);
+    this.use(csrf.middleware)
       .use(csrfInjector)
       .use(csrfAsserter);
     return this;

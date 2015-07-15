@@ -30,6 +30,8 @@
   },
   "homepage": "https://github.com/jmeas/es6-node-boilerplate",
   "dependencies": {
+    "bluebird": "^2.9.34",
+    "js-yaml": "^3.3.1",
     "koa": "^0.21.0"
   },
   "devDependencies": {

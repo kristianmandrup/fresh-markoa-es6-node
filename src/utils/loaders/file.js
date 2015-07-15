@@ -4,6 +4,7 @@ import filepath from 'path';
 import yaml from 'js-yaml';
 import fs from 'fs';
 
+// TODO: change to class with constructor for folder, name, ext!
 export default {
   nameFor: function(name, ext) {
     return `${name}.${ext}`;

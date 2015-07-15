@@ -1,7 +1,7 @@
 'use strict';
 
-import utils from '../../utils';
-var fixture = utils.loader.fixture;
+import utils from '../../../utils';
+var fixture = utils.loaders.fixture;
 
 export default {
   title: 'FORVETBET',

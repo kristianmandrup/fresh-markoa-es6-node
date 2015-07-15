@@ -4,7 +4,7 @@ import Configurator from '../configurator';
 
 export default class BaseMw extends Configurator {
   get use() {
-    this.app.use;
+    return this.app.use;
   }
 
   // custom mounting in callback function
@@ -15,7 +15,7 @@ export default class BaseMw extends Configurator {
 
   unmount(...names) {
     for (let name in names) {
-      delete this.config[name]
+      delete this.config[name];
     }
     return this;
   }

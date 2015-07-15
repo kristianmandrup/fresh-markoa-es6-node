@@ -9,7 +9,7 @@ var dirs = {
 
 function fileLoader(type) {
   return function(name, ext = 'json') {
-    return utils.file.load(dirs[type], name, ext);
+    return loaders.file.load(dirs[type], name, ext);
   };
 }
 
@@ -21,9 +21,9 @@ export default {
   // load JSON from REST endpoint via HTTP GET (Ajax)
   rest: {
     // from CMS
-    block: loaders.ajax('block'),
-    page: loaders.ajax('page'),
-    article: loaders.ajax('article'),
-    menu: loaders.ajax('menu')
+    block: loaders.ajax.get('block'),
+    page: loaders.ajax.get('page'),
+    article: loaders.ajax.get('article'),
+    menu: loaders.ajax.get('menu')
   }
 };

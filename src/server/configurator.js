@@ -4,7 +4,7 @@ export default class Configurator {
   }
 
   get app() {
-    this.config.app;
+    return this.config.app;
   }
 
   get logger() {

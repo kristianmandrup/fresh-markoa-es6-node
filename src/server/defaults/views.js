@@ -4,7 +4,7 @@ var pagesList = [
   'live',
   'casino',
   'account'
-]
+];
 
 export default {
   root: 'views',
@@ -16,4 +16,4 @@ export default {
     root: 'pages',
     available: pagesList
   }
-}
+};

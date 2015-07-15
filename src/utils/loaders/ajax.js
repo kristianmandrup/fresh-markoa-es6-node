@@ -1,5 +1,6 @@
 'use strict';
 
+// TODO: turn into class
 export default {
   get: function(resource) {
     return function(path) {

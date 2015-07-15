@@ -8,8 +8,8 @@ export default class RouterMw extends BaseMw {
     super(config);
   }
 
-  mount(config) {
-    this.app.use(router(this.app));
+  mount() {
+    this.use(router(this.app));
     return this;
   }
 }

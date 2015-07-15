@@ -4,6 +4,7 @@ import RenderStrategies from './render-strategies';
 export default class RenderConfig extends Configurator {
   constructor(config) {
     super(config);
+    // move this to configure() ?
     this.config.rendering.strategies = this.createRenderStrategies();
     this.config.render = this.builder();
   }
@@ -13,15 +14,11 @@ export default class RenderConfig extends Configurator {
   }
 
   get renderStrategies() {
-    return config.rendering.strategies;
+    return this.config.rendering.strategies;
   }
 
   get render() {
     return this.config.render;
-  }
-
-  get pages() {
-    return this.config.views.pages;
   }
 
   get pages() {
@@ -40,4 +37,4 @@ export default class RenderConfig extends Configurator {
       response.type = 'text/html';
     };
   }
-};
+}

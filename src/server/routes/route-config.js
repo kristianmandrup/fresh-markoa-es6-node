@@ -1,25 +1,30 @@
 'use strict';
 
-export default class RouteConfig {
+import Configurator from '../configurator';
+
+export default class RouteConfig extends Configurator {
   constructor(config) {
     super(config);
   }
 
   get routeBuilder() {
-    return server.routes.routeBuilder(this.config);
+    return new this.config.routes.routeBuilder(this.config);
+  }
+
+  get pages() {
+    return this.config.views.pages;
   }
 
   // returns factory function which can
   // create marko routes using data dictionary for async fragments
   // build all routes
-  buildAll(server, options = {}) {
+  buildAll() {
     // create an index route
-    routeBuilder.buildRoute('index', '/');
+    this.routeBuilder.buildRoute('index', '/');
 
     // create routes for each page
-    for (let page of server.views.pages.active)
-      routeBuilder.buildRoute(page);
-
-    return server;
+    for (let page of this.pages.active) {
+      this.routeBuilder.buildRoute(page);
+    }
   }
 }

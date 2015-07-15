@@ -1,7 +1,7 @@
 'use strict';
 
 import delayed from './delayed';
-import loader from './loader';
+import loaders from './index';
 
 const DELAY = 500;
 
@@ -10,9 +10,8 @@ const DELAY = 500;
 export default function(resource, delay) {
   delay = delay || DELAY;
   return function() {
-    let loadData = delayed(loader.file(resource), delay);
+    var loadData = delayed(loaders.file(resource), delay);
     return loadData.then(function(data) {
-      console.log(data);
       return data;
     });
   };
