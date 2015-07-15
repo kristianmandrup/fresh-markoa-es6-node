@@ -17,10 +17,20 @@ server: {
     static: {},
     ...
   },
+  // each page module can mount its own custom config here
+  // this allows each modules to have register its own location for
+  // views and state to be used
+  mounted: {
+    index: {
+    },
+    casino: {
+    },
+    ...
+  }
   // render methods
   render: {
     streamed: fn(response, pageTemplateName, pageData)
-  } 
+  },
   // routing methods
   routes: {
     createBuilder: fn(), // returns route build function
@@ -46,12 +56,13 @@ server: {
       },
       views: {
         // See Views.md
-      }  
+      }
     },
     // each page can be set up with individual views and state config
     // pages can also have custom render methods
     index: {
-
-    }
+      ...
+    },
+    ...
   }
 }

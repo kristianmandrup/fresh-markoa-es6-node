@@ -14,17 +14,15 @@ export default MarkoConfig extends Configurator {
     return /\.marko$/.test(filename);
   }
 
+  //refresher.enable();
+  //reloader.enable();
   enableReload() {
-    //refresher.enable();
-    //reloader.enable();
   }
 
   reloadModifiedTemplate(filename) {
     // Resolve the filename to a full template path:
     var templatePath = path.join(this.viewsPath, filename);
-
-    console.log('Marko template modified: ', templatePath);
-
+    // console.log('Marko template modified: ', templatePath);
     // Pass along the *full* template path to marko
     reloader.handleFileModified(templatePath);
   }
@@ -45,4 +43,3 @@ export default MarkoConfig extends Configurator {
     }
   }
 }
-

@@ -25,8 +25,17 @@ export default class RenderConfig extends Configurator {
     return this.config.views.pages;
   }
 
+  get page() {
+    return this.config.page;
+  }
+
+  pageConfig(name) {
+    return this.page[name] || this.page.default;
+  }
+
+  // TODO: test and improve!
   findPageTemplate(name) {
-    return this.pages.findTemplate(name);
+    return this.pageConfig(name).findTemplate(name);
   }
 
   builder() {
