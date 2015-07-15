@@ -1,6 +1,7 @@
 'use strict';
 
-import Setup from './setup';
+var Setup;
+// import Setup from './setup';
 // import Executer from './executer';
 // import defaults from './defaults';
 // import marko from './marko';
@@ -25,12 +26,15 @@ var extend = Object.assign;
 // }
 
 // all public methods return this to allow chaining!
-export class Server {
+export default class Server {
   constructor(config = {}) {
-    this.config = {
+    this.config = extend(this.defaultConfig, config);
+  }
+
+  get defaultConfig() {
+    return {
       mounted: {}
     };
-    this.config = extend(this.config, config);
   }
 
   // allows full customization of server config
@@ -40,8 +44,8 @@ export class Server {
   }
 
   mount(config, name) {
-    var mounter = typeof name === 'string' ? this.mountModule : this.mountConfig;
-    mounter(config, name);
+    var mountMethod = typeof name === 'string' ? 'mountModule' : 'mountConfig';
+    this[mountMethod](config, name);
     return this;
   }
 

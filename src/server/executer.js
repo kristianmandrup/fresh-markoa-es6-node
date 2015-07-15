@@ -1,4 +1,4 @@
-import Configurator from '../configurator';
+import Configurator from './configurator';
 
 export default class Executer extends Configurator {
   start(options = {}) {

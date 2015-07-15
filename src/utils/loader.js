@@ -14,6 +14,7 @@ function fileLoader(type) {
 }
 
 // Loads a given resource
+// TODO: convert to class?
 export default {
   fileLoader: fileLoader,
   fixture: fileLoader('fixture'),

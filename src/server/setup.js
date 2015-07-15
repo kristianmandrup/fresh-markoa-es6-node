@@ -2,7 +2,8 @@
 
 import Configurator from './configurator';
 import koa from 'koa';
-import defaults from './defaults';
+var defaults;
+// import defaults from './defaults';
 // import middleware from './middleware';
 
 // Usage new Setup(server, {})
