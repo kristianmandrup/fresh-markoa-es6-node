@@ -5,7 +5,7 @@ function resolvePath(root, folder) {
 }
 
 function rootResolver(conf, root) {
-  return function (name) {
+  return function(name) {
     conf[name].rootPath = resolvePath(root, conf[name].rootPath);
   };
 }
@@ -16,28 +16,56 @@ export default class ViewsConfig {
     this.config = config;
   }
 
-  configure() {
-    var views = this.config.views;
-    var pages = views.pages;
-    pages.active = pages.available;
-
     // configure rootPath for views using server root path
-    views.rootPath = resolvePath(options.root, views.root);
+  resolveViewsRootPath() {
+    this.views.rootPath = resolvePath(this.config.root, views.root);
+  }
 
-    var resolveRoot = rootResolver(views, views.rootPath);
+  get resolveRoot() {
+    return rootResolver(this.views, this.views.rootPath);
+  }
 
-    // configure rootPath for /static and /pages folders
+  get views() {
+    this.views = this.config.views;
+  }
+
+  get pages() {
+    this.pages = this.views.pages;
+  }
+
+  // by default activate all available
+  // TODO: allow override to customize this!
+  activatePages() {
+    this.pages.active = this.pages.available;
+  }
+
+  // configure rootPath for /static and /pages folders
+  resolveViewRootPaths() {
     for (let name of ['static', 'pages'])
-      resolveRoot(name);
+      this.resolveRoot(name);
+  }
 
+  resolvePageTemplateRootPaths() {
     // dynamically configure path to each page (in views)
     // allows dev to override by mounting a different path
-    for (let page of pages.active)
-      pages[page] = resolvePath(pages.rootPath, page);
+    for (let page of this.pages.active)
+      this.pages[page] = resolvePath(pages.rootPath, page);
+  }
 
-    pages.findTemplate = function(template) {
-      return pages[template];
+  // allow override
+  // TODO: should by default be more intelligent
+  // using config infrastructure of mounted pages
+  createPageTemplateFinder() {
+    this.pages.findTemplate = (template) => {
+      return this.pages[template];
     };
+  }
+
+  configure() {
+    activatePages();
+    resolveViewRootPaths();
+    resolvePageTemplateRootPaths();
+    createPageTemplateFinder();
     return this;
   }
 }

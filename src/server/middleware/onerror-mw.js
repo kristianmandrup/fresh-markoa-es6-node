@@ -1,5 +1,6 @@
 'use strict';
 
+import BaseMw from './base-mw';
 import onerror from 'koa-onerror';
 import errorHandlers from './onerror/error-handlers';
 
@@ -8,7 +9,7 @@ var errorTemplates = {
   default: 'views/pages/error/error.marko'
 };
 
-export class OnErrorMw {
+export class OnErrorMw extends BaseMw {
   constructor(config) {
     super(config);
   }
@@ -25,4 +26,4 @@ export class OnErrorMw {
     onerror(this.app, errorHandlers);
     return this;
   }
-};
+}

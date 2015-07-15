@@ -1,6 +1,6 @@
 'use strict';
 
-export views from './views-conf';
+import config from './views-conf';
 
 export default {
   config: config,

@@ -1,9 +1,9 @@
 'use strict';
 
-var utils = require('../utils'),
-    fixture = utils.loader.fixture;
+import utils from '../../utils';
+var fixture = utils.loader.fixture;
 
-module.exports = {
+export default {
   title: 'FORVETBET',
   logo: '../img/forvetbet-logo.png',
 
@@ -13,7 +13,6 @@ module.exports = {
     bottomItems: fixture('menus/bottom-menu-items')
   },
 
-  // TODO: load from fixture file!!!
   // see fixtures/account.json
   // this should NOT be global!
   account: {

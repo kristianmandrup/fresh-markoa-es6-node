@@ -1,14 +1,14 @@
 'use strict';
 
-var utils = require('./index'),
-    delayed = utils.delayed,
-    loader = utils.loader,
-    defaultDelay = 500;
+import delayed from './delayed';
+import loader from './loader';
+
+const DELAY = 500;
 
 // Retrieves a resource
 // In real app will load JSON via HTTP GET
 export default function(resource, delay) {
-  delay = delay || defaultDelay;
+  delay = delay || DELAY;
   return function() {
     let loadData = delayed(loader.file(resource), delay);
     return loadData.then(function(data) {

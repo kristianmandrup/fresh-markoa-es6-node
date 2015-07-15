@@ -1,8 +1,8 @@
 'use strict';
 
-var filepath = require('path'),
-    yaml = require('js-yaml'),
-    fs = require('fs');
+import filepath from 'path';
+import yaml from 'js-yaml';
+import fs from 'fs';
 
 export default {
   nameFor: function(name, ext) {
@@ -11,18 +11,23 @@ export default {
   pathFor: function(folder, name, ext) {
     return filepath.join(folder, this.nameFor(name, ext));
   },
-  load: function(folder, name, ext){
+  load: function(folder, name, ext) {
     switch (ext) {
       case 'yml':
         return this.loadYaml(folder, name);
       default:
+        // using node require to load JSON
         return require(this.pathFor(folder, name, ext));
     }
   },
-  loadYaml: function(folder, name){
+  // TODO: Prettify!
+  loadYaml: function(folder, name, ext = 'yml') {
     try {
-      return yaml.safeLoad(fs.readFileSync(this.path(folder, name, '.yml'), 'utf8'));
+      var ymlFilePath = this.pathFor(folder, name, ext);
+      var ymlFile = fs.readFileSync(ymlFilePath);
+      return yaml.safeLoad(ymlFile, 'utf8');
     } catch (e) {
+      // TODO: add real error handler!
       throw e;
     }
   }

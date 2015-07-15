@@ -1,34 +1,22 @@
 'use strict';
 
-export default class BaseMw {
-  constructor(config) {
-    this.config = config;
-  }
+import Configurator from '../configurator';
 
-  log(msg) {
-    this.logger.log(msg);
-  }
-
-  get app() {
-    this.config.app;
-  }
-
+export default class BaseMw extends Configurator {
   get use() {
     this.app.use;
   }
 
-  mount() {
-    // do your mounting
+  // custom mounting in callback function
+  mount(cb) {
+    cb(this);
     return this;
   }
 
   unmount(...names) {
-    for (let name in names)
+    for (let name in names) {
       delete this.config[name]
+    }
     return this;
-  }
-
-  get logger() {
-    this.config.logger;
   }
 }

@@ -1,12 +1,12 @@
 'use strict';
 
-export class TokenRetriever {
+export default class TokenRetriever {
   constructor(request) {
     this.request = request;
   }
 
   get tokenName() {
-    return 'access-token'
+    return 'access-token';
   }
 
   get body() {
@@ -30,6 +30,6 @@ export class TokenRetriever {
   }
 
   get headerToken() {
-    return this.request.headers['x-access-token'];
+    return this.request.headers[`x-${this.tokenName}`];
   }
 }

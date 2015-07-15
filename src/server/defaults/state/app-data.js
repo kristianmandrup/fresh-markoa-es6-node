@@ -12,7 +12,6 @@ function pageData(name) {
   };
 }
 
-
 // See koa-server.md *Models and data* section
 export default function(server) {
   // auto configure/generate data for all registered pages!

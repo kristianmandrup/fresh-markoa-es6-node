@@ -1,17 +1,18 @@
 'use strict';
 
-// http://www.sitepoint.com/using-json-web-tokens-node-js/
+import BaseMw from './base-mw';
 import jwt from './jwt';
 
-export default class CsrfMw {
+export default class JwtMw extends BaseMw {
   constructor(config) {
     super(config);
   }
 
+  // http://www.sitepoint.com/using-json-web-tokens-node-js/
   mount() {
     this.app
       .use(jwt.decodeToken)
       .use(jwt.authErrorHandler.unauthorizedAccess);
     return this;
   }
-};
+}

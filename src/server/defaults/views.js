@@ -8,7 +8,7 @@ var pagesList = [
 
 export default {
   root: 'views',
-  static: {
+  statics: {
     // used to build rootPath
     root: 'public'
   },

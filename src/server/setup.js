@@ -1,27 +1,23 @@
 'use strict';
 
+import Configurator from '../configurator';
 import koa from 'koa';
 import defaults from './defaults';
 // import middleware from './middleware';
 
 // Usage new Setup(server, {})
-export default class Setup {
+export default class Setup extends Configurator {
   constructor(config) {
-    this.config = config;
-
+    super(config);
     // load server default configs
     this.config.defaults = defaults;
   }
 
-  log(msg) {
-    this.config.logger.log(msg);
-  }
-
   // app configuration
   configureApp() {
-    server.app = koa();
+    this.app = koa();
     // mount all middleware
     this.config.middleware.mountAll(this.config);
-    return this.
+    return this;
   }
-};
+}

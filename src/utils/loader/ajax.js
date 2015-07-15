@@ -1,7 +1,7 @@
 'use strict';
 
 export default {
-  get: function(resource){
+  get: function(resource) {
     return function(path) {
       try {
         // do Ajax call

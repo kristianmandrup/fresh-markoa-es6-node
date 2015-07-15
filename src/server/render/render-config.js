@@ -1,6 +1,7 @@
+import Configurator from '../configurator';
 import RenderStrategies from './render-strategies';
 
-export default class RenderConfig {
+export default class RenderConfig extends Configurator {
   constructor(config) {
     super(config);
     this.config.rendering.strategies = this.createRenderStrategies();
@@ -15,6 +16,14 @@ export default class RenderConfig {
     return config.rendering.strategies;
   }
 
+  get render() {
+    return this.config.render;
+  }
+
+  get pages() {
+    return this.config.views.pages;
+  }
+
   get pages() {
     return this.config.views.pages;
   }
@@ -27,7 +36,7 @@ export default class RenderConfig {
     return function(response, pageName, pageData) {
       var pageTemplate = this.findPageTemplate(pageName);
       this.log('rendering template, data:', pageTemplate, pageData);
-      response.body = this.renderStrategies.default(pageTemplate, pageData);
+      response.body = this.render(pageTemplate, pageData);
       response.type = 'text/html';
     };
   }

@@ -1,22 +1,47 @@
 'use strict';
 
+import Configurator from '../../configurator';
 import TokenRetriever from './token-retreiver';
+import jwt from 'jwt-simple';
 
-export decodeToken = function(req, res, next) {
-  var jwt = require('jwt-simple');
-  var tokenRetriever = new TokenRetriever(req);
-  var token = tokenRetriever.retrieveToken();
-
-  if (token) {
-    try {
-      var decoded = jwt.decode(token, app.get('jwtTokenSecret'));
-      // handle token here
-      return decoded;
-
-    } catch (err) {
-      // TODO: user server.logger.log
-      console.log('Decode Token Error', err);
-    }
+export default class TokenParser extends Configurator {
+  get tokenRetriever() {
+    return new TokenRetriever(this.request);
   }
-  return next();
-};
+
+  get token() {
+    this.tokenRetriever.retrieveToken();
+  }
+
+  get validateTokenEndPoint() {
+    return `/auth_tokens/${this.token}/validate`;
+  }
+
+  validateToken() {
+    // using https://github.com/smigit/iaa_service
+    // TODO: use Betty instead
+    return this.app.get(this.validateTokenEndPoint);
+  }
+
+  get validatedToken() {
+    return this.validateToken();
+  }
+
+  get decodedToken() {
+    return jwt.decode(this.token, this.validatedToken);
+  }
+
+  decodeToken(request, next) {
+    this.request = request;
+    if (this.token) {
+      try {
+        this.log('decoded token', this.decodedToken);
+        // handle token here
+        return this.decodedToken;
+      } catch (err) {
+        this.log('Decode Token Error', err);
+      }
+    }
+    return next();
+  }
+}

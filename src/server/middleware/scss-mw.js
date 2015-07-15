@@ -1,8 +1,9 @@
 'use strict';
 
+import BaseMw from './base-mw';
 import scss from 'koa-scss';
 
-export default class ScssMw {
+export default class ScssMw extends BaseMw {
   constructor(config) {
     super(config);
   }
@@ -16,4 +17,4 @@ export default class ScssMw {
     }));
     return this;
   }
-};
+}

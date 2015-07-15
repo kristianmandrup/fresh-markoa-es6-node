@@ -6,7 +6,7 @@ import session from 'koa-session';
 import {csrfInjector, csrfAsserter} from './csrf/';
 
 // https://github.com/koajs/csrf
-export default class CsrfMw {
+export default class CsrfMw extends BaseMw {
   constructor(config) {
     super(config);
   }
@@ -25,10 +25,10 @@ export default class CsrfMw {
 
   validate() {
     if (!this.config.secrets) {
-      throw "Missing secrets on server config"
+      throw 'Missing secrets on server config';
     }
     if (!this.config.secrets.csrf) {
-      throw "Missing csrf secrets on server config"
+      throw 'Missing csrf secrets on server config';
     }
   }
 }

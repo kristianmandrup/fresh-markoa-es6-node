@@ -1,17 +1,11 @@
-export default class Executer {
-  constructor(config) {
-    this.config = config;
-  }
+import Configurator from '../configurator';
 
-  log(msg) {
-    this.config.logger.log(msg);
-  }
-
+export default class Executer extends Configurator {
   start(options = {}) {
     var port = options.port || this.config.port;
     this.log('start server:', port);
 
-    server.app.listen(port, function() {
+    this.app.listen(port, function() {
       this.log(`Koa appplication listens on port ${port}`);
       if (process.send) {
         process.send('online');

@@ -1,3 +1,3 @@
 'use strict';
 
-export loader from './loader';
+export * from './loader';
