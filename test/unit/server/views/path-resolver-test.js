@@ -1,6 +1,6 @@
 'use strict';
 
-import PathResolver from '../../../src/server/views/path-resolver';
+import PathResolver from '../../../../src/server/views/path-resolver';
 
 describe('PathResolver', function() {
   it('exists', () => {
@@ -15,7 +15,7 @@ describe('PathResolver', function() {
 
     describe('#rootResolver', function() {
       it('has a config object', () => {
-        expect(resolver.rootResolver(conf, 'statics')).to.eql('x');
+        expect(resolver.rootResolver(conf, 'statics')).to.be.a('function');
       });
     });
   });

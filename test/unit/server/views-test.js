@@ -14,7 +14,7 @@ describe('Views', function() {
     });
 
     it('can be configured', () => {
-      expect(views.configure()).to.eql({});
+      expect(() => {views.configure();}).to.throw;
     });
   });
 });

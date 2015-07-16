@@ -3,7 +3,18 @@ import util from 'util';
 
 export default class PathResolver {
   resolvePath(root, folder) {
+    if (!root) {
+      throw 'missing root in resolvePath';
+    }
+    if (!folder) {
+      throw 'missing folder in resolvePath';
+    }
+
     return path.resolve(path.join(root, folder));
+  }
+
+  get rootKey() {
+    return 'root';
   }
 
   rootResolver(conf, root) {
@@ -12,10 +23,11 @@ export default class PathResolver {
       if (!obj) {
         throw `No key ${name} in Object ${util.inspect(conf)}`;
       }
-      if (!obj.rootPath) {
-        throw `missing .rootPath in ${util.inspect(obj)}`;
+      var rootPath = obj[this.rootKey];
+      if (!rootPath) {
+        throw `missing .${this.rootKey} in ${util.inspect(obj)}`;
       }
-      conf[name].rootPath = this.resolvePath(root, obj.rootPath);
+      conf[name].rootPath = this.resolvePath(root, rootPath);
     };
   }
 }
