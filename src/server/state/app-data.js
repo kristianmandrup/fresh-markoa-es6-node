@@ -7,8 +7,15 @@ import DataConfigurator from './data-configurator';
 export default class AppData extends DataConfigurator {
   constructor(config) {
     super(config);
+    this.validate();
     this.pageDataGenerator = new PageDataGenerator(config);
     this.configurePageData();
+  }
+
+  validate() {
+    if (!this.config.pages) {
+      throw 'AppData config is missing pages object';
+    }
   }
 
   get pages() {
