@@ -1,9 +1,13 @@
 'use strict';
 
-import renderStrategies from './render-strategies';
-import renderConfig from './render-config';
+import Configurator from '../configurator';
+import RenderStrategies from './render-strategies';
+import RenderConfig from './render-config';
 
-export default {
-  renderStrategies: renderStrategies,
-  renderConfig: renderConfig
-};
+export default class Render extends Configurator {
+  constructor(config) {
+    super(config);
+    this.renderStrategies = new RenderStrategies(config);
+    this.renderConfig = new RenderConfig(config);
+  }
+}

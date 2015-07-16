@@ -1,7 +1,11 @@
-import routeBuilder from './route-builder';
-import routeConfig from './route-config';
+import Configurator from '../configurator';
+import RouteBuilder from './route-builder';
+import RouteConfig from './route-config';
 
-export default {
-  routeBuilder: routeBuilder,
-  routeConfig: routeConfig
-};
+export default class Routes extends Configurator {
+  constructor(config) {
+    super(config);
+    this.routeBuilder = new RouteBuilder(config);
+    this.routeConfig = new RouteConfig(config);
+  }
+}

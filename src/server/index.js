@@ -5,9 +5,9 @@ var Setup;
 // import Executer from './executer';
 // import defaults from './defaults';
 // import marko from './marko';
-// import middleware from './middleware';
-// import render from './render';
-// import routes from './routes';
+import Middleware from './middleware';
+import Render from './render';
+import Routes from './routes';
 // import state from './state';
 // import views from './views';
 
@@ -34,6 +34,9 @@ export default class Server {
     this.config = extend(this.defaultConfig, config);
     this.config.utils = utils;
     this.config.current = {};
+    this.config.routes = new Routes(config);
+    this.config.render = new Render(config);
+    this.config.middleware = new Middleware(config);
   }
 
   get defaultConfig() {

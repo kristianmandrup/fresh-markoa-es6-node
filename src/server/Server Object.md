@@ -4,6 +4,12 @@
 server: {
   app: {...} // the Koa application object
   marko: {} // marko templating
+  // used when router switches context
+  // ensures we can access page specific templates
+  current: {
+    page: 'index',
+    rootPath: 'path/to/current/page/root'
+  },
   // middleware config
   middleware: {
     compression: {
@@ -44,13 +50,14 @@ server: {
   pages: {
     available: ['index', 'prematch', 'live', casino'],
     active: ['index', 'casino']
-  }
+  },
+  // or use mounted!?
   page: {
     default: {
       render: fn()
 
       },
-      config: {}
+      config: {},
       state: {
         // See Server-State.md
       },

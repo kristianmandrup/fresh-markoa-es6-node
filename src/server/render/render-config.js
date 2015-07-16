@@ -4,17 +4,22 @@ import RenderStrategies from './render-strategies';
 export default class RenderConfig extends Configurator {
   constructor(config) {
     super(config);
+    this.config.rendering = {};
     // move this to configure() ?
-    this.config.rendering.strategies = this.createRenderStrategies();
+    this.renderStrategies = new RenderStrategies(this.config);
     this.config.render = this.builder();
   }
 
   get createRenderStrategies() {
-    return new RenderStrategies(this.config);
+    return ;
   }
 
   get renderStrategies() {
     return this.config.rendering.strategies;
+  }
+
+  set renderStrategies(strategies) {
+    this.config.rendering.strategies = strategies;
   }
 
   get render() {

@@ -21,7 +21,7 @@
   content: {
     index: {},
     ...
-  },  
+  },
   global: {
     title: "Forvetbet",
     logo: "logo.png",
@@ -33,7 +33,7 @@
   },
   providers: {
     index: {},
-    ...      
+    ...
   },
   // user session data
   session: {
@@ -51,7 +51,7 @@
     coupons: {
       topTenGames: fn(),
       ...
-    }     
+    }
   }
-} 
-```  
+}
+```

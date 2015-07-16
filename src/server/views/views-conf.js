@@ -2,29 +2,29 @@
 
 import path from 'path';
 
-function resolvePath(root, folder) {
-  return path.resolve(path.join(root, folder));
-}
-
-function rootResolver(conf, root) {
-  return function(name) {
-    conf[name].rootPath = resolvePath(root, conf[name].rootPath);
-  };
-}
-
 // TODO: options = {}
 export default class ViewsConfig {
   constructor(config) {
     this.config = config;
   }
 
+  resolvePath(root, folder) {
+    return path.resolve(path.join(root, folder));
+  }
+
+  rootResolver(conf, root) {
+    return function(name) {
+      conf[name].rootPath = this.resolvePath(root, conf[name].rootPath);
+    };
+  }
+
     // configure rootPath for views using server root path
   resolveViewsRootPath() {
-    this.views.rootPath = resolvePath(this.config.root, this.views.root);
+    this.views.rootPath = this.resolvePath(this.config.root, this.views.root);
   }
 
   get resolveRoot() {
-    return rootResolver(this.views, this.views.rootPath);
+    return this.rootResolver(this.views, this.views.rootPath);
   }
 
   get views() {
@@ -51,7 +51,7 @@ export default class ViewsConfig {
     // dynamically configure path to each page (in views)
     // allows dev to override by mounting a different path
     for (let page of this.pages.active)
-      this.pages[page] = resolvePath(this.pages.rootPath, page);
+      this.pages[page] = this.resolvePath(this.pages.rootPath, page);
   }
 
   // allow override
