@@ -2,14 +2,10 @@
 
 import DataConfigurator from './data-configurator';
 
-export default class Content extends DataConfigurator {
+export default class Pages extends DataConfigurator {
   get data() {
     return {
       index: {
-      },
-      prematch: {
-      },
-      live: {
       }
     };
   }

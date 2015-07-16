@@ -12,7 +12,7 @@ describe('Server', function() {
     var server = new Server();
 
     it('has configuration', () => {
-      expect(server.config).to.eql({mounted: {}});
+      expect(server.config).to.not.eql({});
     });
 
     it('has empty mounted object', () => {

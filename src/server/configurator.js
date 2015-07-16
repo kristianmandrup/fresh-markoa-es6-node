@@ -3,6 +3,8 @@ export default class Configurator {
     this.config = config;
   }
 
+  configure() {}
+
   get app() {
     return this.config.app;
   }

@@ -25,15 +25,21 @@ var extend = Object.assign;
 //   views: views
 // }
 
+import path from 'path';
+import utils from '../utils';
+
 // all public methods return this to allow chaining!
 export default class Server {
   constructor(config = {}) {
     this.config = extend(this.defaultConfig, config);
+    this.config.utils = utils;
+    this.config.current = {};
   }
 
   get defaultConfig() {
     return {
-      mounted: {}
+      mounted: {},
+      rootPath: path.resolve(path.join(__dirname, '../../'))
     };
   }
 

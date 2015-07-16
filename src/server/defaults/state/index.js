@@ -1,19 +1,24 @@
 'use strict';
 
-import content from './content';
-import appData from './app-data';
-import globals from './globals';
-import pages from './pages';
-import providers from'./providers';
-import sessions from'./sessions';
-import stores from'./stores';
+import Content from './content';
+import AppData from './app-data';
+import Globals from './globals';
+import Pages from './pages';
+import Providers from'./providers';
+import Sessions from'./sessions';
+import Stores from'./stores';
 
-export default {
-  content: content,
-  appData: appData,
-  globals: globals,
-  pages: pages,
-  providers: providers,
-  sessions: sessions,
-  stores: stores
-};
+import Configurator from '../../configurator';
+
+export default class State extends Configurator {
+  constructor(config) {
+    super(config);
+    this.content = new Content(config);
+    this.appData = new AppData(config).configure();
+    this.globals = new Globals(config);
+    this.pages = new Pages(config);
+    this.providers = new Providers(config);
+    this.sessions = new Sessions(config);
+    this.stores = new Stores(config);
+  }
+}

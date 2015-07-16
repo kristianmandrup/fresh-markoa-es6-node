@@ -5,7 +5,7 @@ import Configurator from '../configurator';
 import reloader from 'marko/hot-reload';
 import refresher from 'marko/browser-refresh';
 
-export default MarkoConfig extends Configurator {
+export default class MarkoConfig extends Configurator {
   get viewsPath() {
     return this.config.views.rootPath;
   }
@@ -14,9 +14,9 @@ export default MarkoConfig extends Configurator {
     return /\.marko$/.test(filename);
   }
 
-  //refresher.enable();
-  //reloader.enable();
   enableReload() {
+    refresher.enable();
+    reloader.enable();
   }
 
   reloadModifiedTemplate(filename) {
@@ -28,7 +28,7 @@ export default MarkoConfig extends Configurator {
   }
 
   watchTemplates() {
-    enableReload();
+    this.enableReload();
     require('fs').watch(this.viewsPath, function(event, filename) {
       if (this.isMarkoTemplate(filename)) {
         this.reloadModifiedTemplate(filename);
@@ -39,7 +39,7 @@ export default MarkoConfig extends Configurator {
   // TODO: cleanup and refactor!
   configure() {
     if (process.env.NODE_ENV !== 'production') {
-      watchTemplates();
+      this.watchTemplates();
     }
   }
 }

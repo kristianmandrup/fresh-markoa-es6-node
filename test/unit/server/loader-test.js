@@ -1,6 +1,6 @@
 'use strict';
 
-import loader from '../../../src/utils/loader';
+import loader from '../../../src/server/loader';
 
 describe('loader', function() {
   it('exists', () => {

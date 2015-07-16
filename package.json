@@ -32,7 +32,8 @@
   "dependencies": {
     "bluebird": "^2.9.34",
     "js-yaml": "^3.3.1",
-    "koa": "^0.21.0"
+    "koa": "^0.21.0",
+    "marko": "^2.7.6"
   },
   "devDependencies": {
     "babel": "^4.3.0",

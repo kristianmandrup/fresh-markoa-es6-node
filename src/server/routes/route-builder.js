@@ -10,8 +10,9 @@ export default class RouteBuilder extends Configurator {
     super(config);
   }
 
-  appData(name) {
-    return this.state.appData[name];
+  // get the app data for current page
+  get appData() {
+    return this.state.appData.current;
   }
 
   get state() {
@@ -32,12 +33,23 @@ export default class RouteBuilder extends Configurator {
     // response, pageName, pageData
     var ctx = this;
     return function*() {
-      yield this.render(this, ctx.name, ctx.appData(ctx.name));
+      ctx.switchContext();
+      yield this.render(this, ctx.pageName, ctx.appData);
     };
   }
 
+  // set key globals relative to mounted page
+  switchContext() {
+    this.config.current.page = this.pageName;
+    this.config.current.rootPath = this.currentRootPath();
+  }
+
+  get currentRootPath() {
+    return this.config.mounted[this.pageName].rootPath || this.config.rootPath;
+  }
+
   get routeName() {
-    return this.route || this.name;
+    return this.route || this.pageName;
   }
 
   get routePath() {
@@ -45,8 +57,8 @@ export default class RouteBuilder extends Configurator {
   }
 
   // TODO: use koa-router instead!
-  buildRoute(name, route) {
-    this.name = name;
+  buildRoute(pageName, route) {
+    this.pageName = pageName;
     this.route = route;
     this.app.get(this.routePath, this.renderPageFn);
   }

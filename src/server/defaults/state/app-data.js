@@ -1,24 +1,25 @@
 'use strict';
 
-var state = require('./index');
-
-function pageData(name) {
-  return {
-    $global: state.global[name],
-    session: state.session[name],
-    providers: state.providers[name],
-    page: state.page[name],
-    content: state.content[name]
-  };
-}
+import pageData from './page-data';
+import DataConfigurator from './data-configurator';
 
 // See koa-server.md *Models and data* section
-export default function(server) {
-  // auto configure/generate data for all registered pages!
-  var data = {};
-  for (let page of server.config.pages) {
-    data[page] = pageData(page);
+export default class AppData extends DataConfigurator {
+
+  get data() {
+    return this.config.state.data || {};
   }
-  server.state.data = data;
-  return server;
+
+  set data(data) {
+    this.data = data;
+  }
+
+  configure() {
+    // auto configure/generate data for all registered pages!
+    this.data = {};
+    for (let page of this.config.pages) {
+      this.data[page] = pageData(page);
+    }
+    return this.data;
+  }
 }
