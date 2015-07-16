@@ -1,9 +1,20 @@
 'use strict';
 
-import views from '../../../src/server/views';
+import Views from '../../../src/server/views';
 
-describe('views', function() {
+describe('Views', function() {
   it('exists', () => {
-    expect(views).to.not.be.undefined;
+    expect(Views).to.not.be.undefined;
+  });
+
+  describe('empty config', function() {
+    var views = new Views({});
+    it('has a config object', () => {
+      expect(views.config).to.eql({});
+    });
+
+    it('can be configured', () => {
+      expect(views.configure()).to.eql({});
+    });
   });
 });

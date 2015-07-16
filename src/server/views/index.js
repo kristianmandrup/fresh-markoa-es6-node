@@ -1,38 +1,29 @@
 'use strict';
 
-import path from 'path';
+import PathResolver from './path-resolver';
 
 // TODO: Refactor into Resolver helper classes
 export default class Views {
   constructor(config) {
     this.config = config;
-  }
-
-  resolvePath(root, folder) {
-    return path.resolve(path.join(root, folder));
-  }
-
-  rootResolver(conf, root) {
-    return function(name) {
-      conf[name].rootPath = this.resolvePath(root, conf[name].rootPath);
-    };
+    this.pathResolver = new PathResolver();
   }
 
     // configure rootPath for views using server root path
   resolveViewsRootPath() {
-    this.views.rootPath = this.resolvePath(this.config.root, this.views.root);
+    this.views.rootPath = this.pathResolver.resolvePath(this.config.rootPath, this.views.root);
   }
 
   get resolveRoot() {
-    return this.rootResolver(this.views, this.views.rootPath);
+    return this.pathResolver.rootResolver(this.views, this.views.rootPath);
   }
 
   get views() {
-    this.views = this.config.views;
+    return this.config.views;
   }
 
   get pages() {
-    this.pages = this.views.pages;
+    return this.views.pages;
   }
 
   // by default activate all available
@@ -41,17 +32,25 @@ export default class Views {
     this.pages.active = this.pages.available;
   }
 
-  // configure rootPath for /static and /pages folders
+  get assetTypes() {
+    return ['statics', 'pages'];
+  }
+
+  // configure rootPath for /statics and /pages folders
+  // statics is where static assets live such as:
+  // - images, fonts, css etc
   resolveViewRootPaths() {
-    for (let name of ['static', 'pages'])
+    for (let name of this.assetTypes) {
       this.resolveRoot(name);
+    }
   }
 
   resolvePageTemplateRootPaths() {
     // dynamically configure path to each page (in views)
     // allows dev to override by mounting a different path
-    for (let page of this.pages.active)
+    for (let page of this.pages.active) {
       this.pages[page] = this.resolvePath(this.pages.rootPath, page);
+    }
   }
 
   // allow override

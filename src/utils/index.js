@@ -5,8 +5,6 @@
 // loaders
 import loaders from './loaders';
 
-console.log('loaders', loaders);
-
 export default {
   loaders: loaders
 };

@@ -42,7 +42,7 @@ export default class Server {
     this.config.middleware = new Middleware(config);
     this.config.marko = new Marko(config);
     this.config.executer = new Executer(config);
-    this.config.views = new Views(config);
+    this.config.views = new Views(config).configure();
   }
 
   // allows full customization of server config
