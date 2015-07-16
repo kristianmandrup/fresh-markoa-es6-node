@@ -1,49 +1,48 @@
 'use strict';
 
-var Setup;
-// import Setup from './setup';
-// import Executer from './executer';
-// import defaults from './defaults';
-// import marko from './marko';
+import Setup from './setup';
+import Executer from './executer';
+import Defaults from './defaults';
+import Marko from './marko';
 import Middleware from './middleware';
 import Render from './render';
 import Routes from './routes';
-// import state from './state';
-// import views from './views';
+import Views from './views';
+import State from './state';
+import Loader from './loader';
 
 var extend = Object.assign;
 
-// export default {
-//   executor: Executer,
-//   defaults: defaults,
-//   marko: marko,
-//   middleware: middleware,
-//   render: render,
-//   routes: routes,
-//   state: state,
-//   setup: Setup,
-//   views: views
-// }
-
-import path from 'path';
 import utils from '../utils';
 
 // all public methods return this to allow chaining!
 export default class Server {
-  constructor(config = {}) {
-    this.config = extend(this.defaultConfig, config);
+  constructor(config = {}, options = {}) {
+    this.options = options;
+    this.config = {};
     this.config.utils = utils;
-    this.config.current = {};
+    this.config.defaults = new Defaults(config, options).configure();
+
+    this.config = extend(this.config, this.config.defaults.settings, config);
+    this.config.current = {
+      rootPath: this.config.rootPath
+    };
+
+    this.init();
+  }
+
+  init() {
+    var config = this.config;
+    this.config.loader = new Loader(config).loaders;
+    this.config.state = new State(config);
+    this.config.state.configureAppData();
+
     this.config.routes = new Routes(config);
     this.config.render = new Render(config);
     this.config.middleware = new Middleware(config);
-  }
-
-  get defaultConfig() {
-    return {
-      mounted: {},
-      rootPath: path.resolve(path.join(__dirname, '../../'))
-    };
+    this.config.marko = new Marko(config);
+    this.config.executer = new Executer(config);
+    this.config.views = new Views(config);
   }
 
   // allows full customization of server config

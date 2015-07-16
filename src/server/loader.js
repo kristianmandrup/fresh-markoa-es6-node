@@ -15,13 +15,17 @@ export default class Loader extends Configurator {
     };
   }
 
+  get current() {
+    return this.config.current;
+  }
+
   // TODO: should be according to current context (ie. current page)
   resolveDir(type) {
     return path.join(this.config.current.rootPath, this.dirs[type]);
   }
 
   fileLoader(type) {
-    return function(name, ext = 'json') {
+    return (name, ext = 'json') => {
       return loaders.file.load(this.resolveDir(type), name, ext);
     };
   }

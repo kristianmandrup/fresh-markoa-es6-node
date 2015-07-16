@@ -4,7 +4,7 @@ import DataConfigurator from './data-configurator';
 
 export default class Globals extends DataConfigurator {
   get fixture() {
-    return this.config.utils.loader.fixture;
+    return this.config.loader.fixture;
   }
 
   get data() {
@@ -14,8 +14,8 @@ export default class Globals extends DataConfigurator {
 
       // load from fixture files :)
       menu: {
-        topItems: this.fixture('menus/top-menu-items'),
-        bottomItems: this.fixture('menus/bottom-menu-items')
+        topItems: this.fixture('menus/top-menu'),
+        bottomItems: this.fixture('menus/bottom-menu')
       },
 
       // see fixtures/account.json

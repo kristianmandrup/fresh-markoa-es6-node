@@ -1,26 +1,55 @@
 'use strict';
 
-var middlewareList = [
-  'compression',
-  'csrf',
-  'jwt',
-  'onerror',
-  'router',
-  'scss',
-  'static'
-];
-
+import Configurator from '../configurator';
 import views from './views';
-import state from './state';
+import path from 'path';
 
-export default {
-  port: 4000,
-  secret: 'haTd3Yw9IfSGpM5VfY9srGOd2N92GJ2aT4',
-  mounted: {},
-  middlewares: {
-    available: middlewareList,
-    active: middlewareList
-  },
-  views: views,
-  state: state
-};
+export default class Defaults extends Configurator {
+  constructor(config, options = {}) {
+    super(config);
+    this.options = options;
+  }
+
+  configure() {
+    this.config.pages = this.settings.pages;
+    return this;
+  }
+
+  get middlewareList() {
+    return [
+      'compression',
+      'csrf',
+      'jwt',
+      'onerror',
+      'router',
+      'scss',
+      'static'
+    ];
+  }
+
+  get rootPath() {
+    return this.options.rootPath || this.myRoot;
+  }
+
+  get myRoot() {
+    return path.resolve(path.join(__dirname, '../../../'));
+  }
+
+  get settings() {
+    return {
+      port: 4000,
+      secret: 'haTd3Yw9IfSGpM5VfY9srGOd2N92GJ2aT4',
+      mounted: {},
+      rootPath: this.rootPath,
+      middlewares: {
+        available: this.middlewareList,
+        active: this.middlewareList
+      },
+      pages: {
+        available: ['index', 'prematch', 'live', 'casino'],
+        active: ['index', 'casino']
+      },
+      views: views
+    };
+  }
+}

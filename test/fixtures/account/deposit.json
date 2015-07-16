@@ -1,0 +1,16 @@
+[{
+  "options": [{
+    "ammount": 20
+  }, {
+    "ammount": 50
+  }, {
+    "ammount": 100
+  }]
+},{
+  "methods": [{
+    "label": "Visa"
+  }, {
+    "label": "UKash"
+  }]
+}]
+
