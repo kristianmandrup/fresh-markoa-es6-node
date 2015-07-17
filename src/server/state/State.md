@@ -2,20 +2,6 @@
 
 The `/state` folder contains all the various types of stage made available to the app.
 
-All state is exposed via `data.js` which exports an object where each key is the name of a page. This data object is generated automatically by using server config (list of pages) and by using conventions.
-
-```js
-function pageData(name) {
-  return {
-    $global: state.global[name],
-    session: state.session[name],
-    providers: state.providers[name],
-    page: state.page[name],
-    content: state.content[name]
-  }
-}
-```
-
 ### Providers
 
 `providers.js` contains data providers grouped by page, which are promises that load data asynchronously as the page is rendered. Provider data is typically used in `<async-fragments>` in the marko template.
@@ -45,3 +31,17 @@ Session data can be used to simulate different types of users
 ### Content
 
 Content is data which is loaded from a static location, such as articles from the CMS.
+
+### Default data
+
+Each of the state constructors expect to be called with the server `config` object and a `props` object (see `DataConfigurator`).
+The `props` object should normally consist of an application `name` and a `data` object.
+If the `props` object doesn't have a `data` object it will use the defaults for that type of state.
+
+```js
+class DataConfigurator extends Configurator {
+  constructor(config, props = {}) {
+    super(config);
+    this.data = props.data || this.defaultData[props.name] || this.defaultData;
+  }
+```

@@ -27,11 +27,11 @@ export default class State extends Configurator {
     var state = new State(config);
     this.content = new Content(config, props);
     this.globals = new Globals(config, props);
-    this.pages = new Pages(config);
-    this.sessions = new Sessions(config);
+    this.pages = new Pages(config, props);
+    this.sessions = new Sessions(config, props);
 
     // TODO: use decorators!!!
-    this.providers = new Providers(config);
-    this.stores = new Stores(config);
+    this.providers = new Providers(config, props);
+    this.stores = new Stores(config, props);
   }
 }

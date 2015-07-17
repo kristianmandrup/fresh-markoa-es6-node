@@ -4,7 +4,7 @@ import defaults from './defaults';
 export default class DataConfigurator extends Configurator {
   constructor(config, props = {}) {
     super(config);
-    this.data = props.data || this.defaultData[props.name];
+    this.data = props.data || this.defaultData[props.name] || this.defaultData;
   }
 
   // override by subclass
