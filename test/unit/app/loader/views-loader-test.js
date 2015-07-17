@@ -1,4 +1,4 @@
-import ViewsLoader from '../../../src/app/loader/views-loader';
+import ViewsLoader from '../../../../src/app/loader/views-loader';
 
 describe('ViewsLoader', function() {
   it('exists', () => {
