@@ -2,7 +2,6 @@
 
 import PathResolver from './path-resolver';
 
-// TODO: Refactor into Resolver helper classes
 export default class Views {
   constructor(config) {
     this.config = config;
@@ -11,11 +10,15 @@ export default class Views {
 
     // configure rootPath for views using server root path
   resolveViewsRootPath() {
-    this.views.rootPath = this.pathResolver.resolvePath(this.config.rootPath, this.views.root);
+    this.views.rootPath = this.pathResolver.resolvePath(this.rootPath, this.views.root);
   }
 
   get resolveRoot() {
     return this.pathResolver.rootResolver(this.views, this.views.rootPath);
+  }
+
+  get rootPath() {
+    return this.config.rootPath;
   }
 
   get views() {

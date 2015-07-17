@@ -11,7 +11,7 @@ export default class Defaults extends Configurator {
   }
 
   configure() {
-    this.config.pages = this.settings.pages;
+    this.config.views = this.settings.views;
     return this;
   }
 
@@ -44,10 +44,6 @@ export default class Defaults extends Configurator {
       middlewares: {
         available: this.middlewareList,
         active: this.middlewareList
-      },
-      pages: {
-        available: ['index', 'prematch', 'live', 'casino'],
-        active: ['index', 'casino']
       },
       views: views
     };

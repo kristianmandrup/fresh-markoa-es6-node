@@ -14,6 +14,7 @@ export default {
   },
   pages: {
     root: 'pages',
-    available: pagesList
+    available: pagesList,
+    active: ['index', 'casino']
   }
 };

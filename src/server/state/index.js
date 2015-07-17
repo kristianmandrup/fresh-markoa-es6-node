@@ -20,7 +20,7 @@ export default class State extends Configurator {
     this.stores = new Stores(config);
   }
 
-  configureAppData() {
+  configure() {
     this.appData = new AppData(this.config);
     return this;
   }
