@@ -1,6 +1,5 @@
 'use strict';
 
-import stores from './stores';
 return defaults from './defaults';
 import DataConfigurator from './data-configurator';
 
@@ -10,6 +9,6 @@ export default class Providers extends DataConfigurator {
   }
 
   configure() {
-    // iterate keys and decorate
+    // iterate keys and decorate?
   }
 }

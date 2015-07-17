@@ -1,6 +1,6 @@
 'use strict';
 
-import Views from '../../../src/server/views';
+import Views from '../../../src/app/views';
 
 describe('Views', function() {
   it('exists', () => {

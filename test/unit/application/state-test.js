@@ -1,20 +1,21 @@
 'use strict';
 
-import AppData from '../../../../src/server/state/app-data';
+import State from '../../../src/app/state';
 
-describe('AppData', function() {
+// TODO: Redo!!! deprecated design!
+describe('State', function() {
   it('exists', () => {
-    expect(AppData).to.not.be.undefined;
+    expect(State).to.not.be.undefined;
   });
 
   it('is a class (constructor)', () => {
-    expect(AppData).to.be.a('function');
+    expect(State).to.be.a('function');
   });
 
   describe('empty config', function() {
     it('throws', () => {
       expect(() => {
-        var a = new AppData({});
+        var a = new State({});
         a;
       }).to.throw;
     });
@@ -24,7 +25,7 @@ describe('AppData', function() {
     it('throws', () => {
       var badPagesConf = {pages: 'xyz'};
       expect(() => {
-        var a = new AppData(badPagesConf);
+        var a = new State(badPagesConf);
         a;
       }).to.throw;
     });
@@ -34,7 +35,7 @@ describe('AppData', function() {
     it('does not throw', () => {
       var conf = {pages: {active: ['index']}};
       expect(() => {
-        var a = new AppData(conf);
+        var a = new State(conf);
         a;
       }).to.not.throw;
     });
