@@ -1,14 +1,14 @@
 'use strict';
 
-import Defaults from '../../../src/server/defaults';
+import Settings from '../../../src/server/settings';
 
-describe('Defaults', function() {
+describe('Settings', function() {
   it('exists', () => {
-    expect(Defaults).to.not.be.undefined;
+    expect(Settings).to.not.be.undefined;
   });
 
   describe('empty config', function() {
-    var defaults = new Defaults({});
+    var defaults = new Settings({});
 
     it('has config', () => {
       expect(defaults.config).to.eql({});

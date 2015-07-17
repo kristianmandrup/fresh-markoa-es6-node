@@ -1,13 +1,14 @@
 'use strict';
 
 import Setup from './setup';
-import Mounter from '../application/mounter';
+import Mounter from '../app/mounter';
 import Settings from './settings';
 import Configurator from './configurator';
 import Runner from './runner';
 import Marko from './marko';
 import Middleware from './middleware';
 import Render from './render';
+import Routes from './routes';
 import utils from '../utils';
 
 // all public methods return this to allow chaining!
@@ -34,6 +35,7 @@ export default class Server extends Configurator {
     this.middleware = new Middleware(config);
     this.marko = new Marko(config);
     this.runner = new Runner(config);
+    this.routes = new Routes(config);
   }
 
   app(name) {

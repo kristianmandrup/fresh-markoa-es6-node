@@ -1,6 +1,6 @@
-import Configurator from './configurator';
-import StateLoader from './state-loader';
-import ViewsLoader from './views-loader';
+import Configurator from '../server/configurator';
+import StateLoader from './loader/state-loader';
+import ViewsLoader from './loader/views-loader';
 
 export default class Loader extends Configurator {
   // Factory method to create Loader from options object

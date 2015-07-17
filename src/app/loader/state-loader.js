@@ -1,12 +1,18 @@
 import BaseLoader from './base-loader';
-import loaders from './state/loaders';
 
 export default class StateLoader extends BaseLoader {
   // generalize in Loader
   constructor(config) {
     super(config);
-    this.loaders = config.loaders || loaders(this);
-    this.defaultPaths = config.default.state.loader.paths;
+    this.defaultPaths = this.loader.paths;
+  }
+
+  get loaders() {
+    return this.config.loaders;
+  }
+
+  get loader() {
+    return this.config.default.state.loader;
   }
 
   fileLoader(type) {

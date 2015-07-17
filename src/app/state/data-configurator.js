@@ -1,4 +1,4 @@
-import Configurator from '../configurator';
+import Configurator from '../../server/configurator';
 
 export default class DataConfigurator extends Configurator {
   constructor(config, props = {}) {

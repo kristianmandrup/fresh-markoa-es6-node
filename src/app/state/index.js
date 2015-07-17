@@ -6,17 +6,11 @@ import Pages from './pages';
 import Providers from'./providers';
 import Sessions from'./sessions';
 import Stores from'./stores';
-import AppData from'./app-data';
-import Configurator from '../configurator';
+import Configurator from '../../server/configurator';
 
 export default class State extends Configurator {
   constructor(config) {
     super(config);
-  }
-
-  configure() {
-    this.appData = new AppData(this.config);
-    return this;
   }
 
   // will all use defaults since missing second argument
