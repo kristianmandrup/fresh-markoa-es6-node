@@ -3,10 +3,8 @@
 import DataConfigurator from './data-configurator';
 
 export default class Pages extends DataConfigurator {
-  get data() {
-    return {
-      index: {
-      }
-    };
+  constructor(config, obj) {
+    super(config);
+    this.data = obj || defaults.pages;
   }
 }

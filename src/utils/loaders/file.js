@@ -1,6 +1,6 @@
 'use strict';
 
-import filepath from 'path';
+import path from 'path';
 import yaml from 'js-yaml';
 import fs from 'fs';
 
@@ -10,7 +10,7 @@ export default {
     return `${name}.${ext}`;
   },
   pathFor: function(folder, name, ext) {
-    return filepath.join(folder, this.nameFor(name, ext));
+    return path.join(folder, this.nameFor(name, ext));
   },
   load: function(folder, name, ext) {
     switch (ext) {
@@ -21,7 +21,7 @@ export default {
         return require(this.pathFor(folder, name, ext));
     }
   },
-  // TODO: Prettify!
+
   loadYaml: function(folder, name, ext = 'yml') {
     try {
       var ymlFilePath = this.pathFor(folder, name, ext);

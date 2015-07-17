@@ -12,16 +12,21 @@ import Configurator from '../configurator';
 export default class State extends Configurator {
   constructor(config) {
     super(config);
+  }
+
+  configure() {
+    this.appData = new AppData(this.config);
+    return this;
+  }
+
+  // will all use defaults since missing second argument
+  static createDefault(config) {
+    var state = new State(config);
     this.content = new Content(config);
     this.globals = new Globals(config);
     this.pages = new Pages(config);
     this.providers = new Providers(config);
     this.sessions = new Sessions(config);
     this.stores = new Stores(config);
-  }
-
-  configure() {
-    this.appData = new AppData(this.config);
-    return this;
   }
 }

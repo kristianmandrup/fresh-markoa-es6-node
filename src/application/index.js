@@ -12,4 +12,26 @@ export default class Application extends Configurator {
     this.views = config.views[name];
     this.state = config.state[name];
   }
+
+  mount(config = {}) {
+    this.mountViews(config.views);
+    this.mountState(config.state);
+  }
+
+  // TODO: validate?
+  mountViews(views = {}) {
+    this.views = views;
+  }
+
+  // TODO: validate?
+  mountState(state = {}) {
+    this.state = state;
+  }
+
+  static createDefault(config) {
+    return new Application({
+      state: new State(config),
+      views: new Views(config)
+    });
+  }
 }

@@ -4,7 +4,7 @@ import Setup from './setup';
 import Mounter from './application/mounter';
 import Configurator from './configurator';
 import Initializer from './initializer';
-import Defaults from './defaults';
+import Settings from './settings';
 
 var extend = Object.assign;
 
@@ -16,18 +16,37 @@ export default class Server extends Configurator {
     this.options = options;
     this.config = {};
     this.config.utils = utils;
-
     this.mounter = new Mounter(config);
+    this.settings = new Settings(this.config, this.options).configure();
 
-    // Move to Initializer?
-    this.config.defaults = new Defaults(config, options).configure();
-
-    this.config = extend(this.config, this.config.defaults.settings, config);
     this.config.current = {
-      rootPath: this.config.rootPath
+      rootPath: this.rootPath
     };
     // PROBLEM!!
-    this.initializer = new Initializer(config).init();
+    // this.initializer = new Initializer(config).init();
+  }
+
+  app(name) {
+    return this.config.mounted[name];
+  }
+
+  get rootPath() {
+    return this.config.settings.rootPath;
+  }
+
+  get settings() {
+    return this.config.settings;
+  }
+
+  set settings(settings) {
+    this.config.settings = settings;
+  }
+
+  // after this.config is configured
+  // we to use it to setup Server
+  setup() {
+    this.setup = new Setup(this.config).configureApp();
+    return this;
   }
 
   // allows full customization of server config
@@ -57,13 +76,6 @@ export default class Server extends Configurator {
 
   mountConfig(config) {
     this.config = extend(this.config, config);
-    return this;
-  }
-
-  // after this.config is configured
-  // we to use it to setup Server
-  setup() {
-    this.setup = new Setup(this.config).configureApp();
     return this;
   }
 }
