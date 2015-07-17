@@ -1,9 +1,24 @@
 'use strict';
 
-import routes from '../../../src/server/routes';
+// import util from 'util';
+import Routes from '../../../src/server/routes';
 
-describe('routes', function() {
+describe('Routes', function() {
   it('exists', () => {
-    expect(routes).to.not.be.undefined;
+    expect(Routes).to.not.be.undefined;
+  });
+
+  it('is a class (constructor)', () => {
+    expect(Routes).to.be.a('function');
+  });
+
+  describe('empty config', function() {
+    var routes = new Routes({});
+
+    it('has config', () => {
+      // throw util.inspect(routes.config);
+      expect(routes.config).to.be.a('object');
+      expect(routes.config).to.eql({});
+    });
   });
 });

@@ -8,6 +8,12 @@ You can include the full server simply by:
 
 `var server = require('./src/server');`
 
+### Initializer
+
+Initialization is done as the last part of the Server constructor in order to build the entire Server object graph.
+
+Any app can then mount Application or customize parts of the Server graph as needed, before calling `setup()` on server to use that configuration to setup the Koa server.
+
 ### Setup
 
 `setup.js` is used to setup the Koa server with middleware configurations etc.

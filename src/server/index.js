@@ -1,49 +1,52 @@
 'use strict';
 
 import Setup from './setup';
-import Executer from './executer';
-import Defaults from './defaults';
-import Marko from './marko';
-import Middleware from './middleware';
-import Render from './render';
-import Routes from './routes';
-import Views from './views';
-import State from './state';
-import Loader from './loader';
+import Mounter from './application/mounter';
+import Configurator from './configurator';
+import Initializer from './initializer';
+import Settings from './settings';
 
 var extend = Object.assign;
 
 import utils from '../utils';
 
 // all public methods return this to allow chaining!
-export default class Server {
+export default class Server extends Configurator {
   constructor(config = {}, options = {}) {
     this.options = options;
     this.config = {};
     this.config.utils = utils;
-    this.config.defaults = new Defaults(config, options).configure();
+    this.mounter = new Mounter(config);
+    this.settings = new Settings(this.config, this.options).configure();
 
-    this.config = extend(this.config, this.config.defaults.settings, config);
     this.config.current = {
-      rootPath: this.config.rootPath
+      rootPath: this.rootPath
     };
-
-    this.init();
+    // PROBLEM!!
+    // this.initializer = new Initializer(config).init();
   }
 
-  init() {
-    var config = this.config;
-    this.config.loader = new Loader(config).loaders;
-    this.config.state = new State(config);
-    this.config.state.configureAppData();
+  app(name) {
+    return this.config.mounted[name];
+  }
 
-    this.config.routes = new Routes(config);
-    this.config.render = new Render(config);
-    this.config.middleware = new Middleware(config);
-    this.config.marko = new Marko(config);
-    this.config.executer = new Executer(config);
-    // TODO: when it works!
-    this.config.views = new Views(config); // .configure();
+  get rootPath() {
+    return this.config.settings.rootPath;
+  }
+
+  get settings() {
+    return this.config.settings;
+  }
+
+  set settings(settings) {
+    this.config.settings = settings;
+  }
+
+  // after this.config is configured
+  // we to use it to setup Server
+  setup() {
+    this.setup = new Setup(this.config).configureApp();
+    return this;
   }
 
   // allows full customization of server config
@@ -53,31 +56,26 @@ export default class Server {
   }
 
   mount(config, name) {
-    var mountMethod = typeof name === 'string' ? 'mountModule' : 'mountConfig';
-    this[mountMethod](config, name);
+    this[this.mountMethod(name)](config, name);
     return this;
   }
 
-  mountModule(config, name) {
-    this.config.mounted[name] = config;
+  mountMethod(name) {
+    return typeof name === 'string' ? 'mountApp' : 'mountConfig';
+  }
+
+  mountApp(config, name) {
+    this.mounter.mount(config, name);
     return this;
   }
 
-  unmountModule(config, name) {
-    delete this.config.mounted[name];
+  unmountApp(config, name) {
+    this.mounter.unmount(name);
     return this;
   }
 
   mountConfig(config) {
     this.config = extend(this.config, config);
-    return this;
-  }
-
-  // after this.config is configured
-  // we to use it to setup Server
-  setup() {
-    this.setup = new Setup(this.config);
-    this.setup.configureApp();
     return this;
   }
 }
