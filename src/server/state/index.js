@@ -20,13 +20,18 @@ export default class State extends Configurator {
   }
 
   // will all use defaults since missing second argument
-  static createDefault(config) {
+  static createDefault(config, name) {
+    var props = {
+      app: name
+    };
     var state = new State(config);
-    this.content = new Content(config);
-    this.globals = new Globals(config);
+    this.content = new Content(config, props);
+    this.globals = new Globals(config, props);
     this.pages = new Pages(config);
-    this.providers = new Providers(config);
     this.sessions = new Sessions(config);
+
+    // TODO: use decorators!!!
+    this.providers = new Providers(config);
     this.stores = new Stores(config);
   }
 }

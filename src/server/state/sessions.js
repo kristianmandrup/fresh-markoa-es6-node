@@ -1,12 +1,12 @@
 'use strict';
 
 import DataConfigurator from './data-configurator';
+return defaults from './defaults';
 
 // user session data
 export default class Session extends DataConfigurator {
-  constructor(config, obj) {
-    super(config);
-    this.data = obj || defaults.sessions;
+  get defaultData() {
+    return defaults.sessions;
   }
 }
 

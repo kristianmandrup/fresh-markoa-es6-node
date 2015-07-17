@@ -1,11 +1,15 @@
 'use strict';
 
 import DataConfigurator from './data-configurator';
+import defaults from './defaults';
 
 export default class Content extends DataConfigurator {
-  constructor(config, obj) {
-    super(config);
-    this.data = obj || defaults.content;
+  constructor(config, props) {
+    super(config, props);
+  }
+
+  get defaultData() {
+    return defaults.content;
   }
 
   configure() {
