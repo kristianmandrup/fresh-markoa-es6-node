@@ -4,6 +4,7 @@ import pages from './_pages';
 import providers from './_providers';
 import sessions from './_sessions';
 import stores from './_stores';
+import loader from './_loader';
 
 export default {
   globals: globals,
@@ -11,5 +12,6 @@ export default {
   pages: pages,
   providers: providers,
   sessions: sessions,
-  stores: stores
+  stores: stores,
+  loader: loader
 };

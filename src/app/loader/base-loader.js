@@ -1,7 +1,8 @@
-import Loader from '../../loader';
+import Configurator from '../../../configurator';
+import path from 'path';
 
 export default class BaseLoader extends Configurator {
-  constructor(config, options = {}) {
+  constructor(config) {
     super(config);
     this.paths = config.paths || this.defaultPaths;
   }

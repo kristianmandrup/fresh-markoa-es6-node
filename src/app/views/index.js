@@ -1,9 +1,6 @@
 'use strict';
 
-import PathResolver from './path-resolver';
-import views from './views-config';
-
-// TODO: Refactor to use Application View loader
+// TODO: Refactor to use View loader
 export default class Views {
   constructor(config) {
     this.config = config;
@@ -19,10 +16,6 @@ export default class Views {
   // TODO: allow override to customize this!
   activatePages() {
     this.pages.active = this.pages.available;
-  }
-
-  get assetTypes() {
-    return ['statics', 'pages'];
   }
 
   // allow override

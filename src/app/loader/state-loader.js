@@ -1,9 +1,12 @@
-import Loader from '../loader';
+import BaseLoader from './base-loader';
+import loaders from './state/loaders';
 
 export default class StateLoader extends BaseLoader {
   // generalize in Loader
   constructor(config) {
     super(config);
+    this.loaders = config.loaders || loaders(this);
+    this.defaultPaths = config.default.state.loader.paths;
   }
 
   fileLoader(type) {
@@ -12,26 +15,11 @@ export default class StateLoader extends BaseLoader {
     };
   }
 
-  get defaultPaths() {
-    return {
-      fixture: 'test/fixtures',
-      config: 'config'
-    };
+  fromStore(name) {
+    return this.loaders.store(name);
   }
 
-  get loaders() {
-    return {
-      fixture: this.fileLoader('fixtures'),
-      config: this.fileLoader('config'),
-      // load JSON from REST endpoint via HTTP GET (Ajax)
-      rest: {
-        // from CMS
-        block: loaders.ajax.get('block'),
-        page: loaders.ajax.get('page'),
-        article: loaders.ajax.get('article'),
-        menu: loaders.ajax.get('menu')
-      }
-    };
+  provide(name) {
+    return this.loaders.provider(name);
   }
 }
-

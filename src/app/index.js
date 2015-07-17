@@ -1,4 +1,6 @@
 import Configurator from '../configurator';
+import State from './state';
+import Views from './views';
 
 // Each page is a separate application potentially
 // with its own subset of the Server config namely:
@@ -9,8 +11,30 @@ export default class Application extends Configurator {
   constructor(config, name) {
     super(config);
     this.name = name;
-    this.views = config.views[name];
-    this.state = config.state[name];
+
+    this.createDefaults(config);
+    this.createViews(config);
+    this.createState(config);
+  }
+
+  createDefaults(config) {
+    this.defaults = config.defaults || {state: {}, views: {}};
+  }
+
+  // create a View config
+  createViews(config) {
+    this.views = new Views(config);
+  }
+
+  // create a State
+  createState(config) {
+    this.state = new State(config);
+  }
+
+  init() {
+    this.views.configure();
+    this.state.configure();
+    return this;
   }
 
   mount(config = {}) {

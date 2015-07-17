@@ -1,13 +1,10 @@
-'use strict';
-
-import path from 'path';
 import Configurator from './configurator';
+import StateLoader from './state-loader';
+import ViewsLoader from './views-loader';
 
 export default class Loader extends Configurator {
-  constructor(config, options = {}) {
-    super(config);
-  }
-
+  // Factory method to create Loader from options object
+  // TODO: allow injection?
   static createFrom(config, options) {
     if (options) {
       this.rootPath = options.rootPath;

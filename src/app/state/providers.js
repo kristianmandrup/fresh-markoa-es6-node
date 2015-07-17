@@ -1,14 +1,9 @@
 'use strict';
 
-return defaults from './defaults';
 import DataConfigurator from './data-configurator';
 
 export default class Providers extends DataConfigurator {
-  get defaultData() {
-    return defaults.providers;
-  }
-
+  // TODO: use a decorator?
   configure() {
-    // iterate keys and decorate?
   }
 }

@@ -1,13 +1,14 @@
-import Loader from '../loader';
-import viewsConf from './views/views-config';
+import BaseLoader from './base-loader';
+import PathResolver from './views/path-resolver';
 
-export default class StateLoader extends Loader {
+// TODO: Clean this up! Simplify!!
+export default class StateLoader extends BaseLoader {
   // generalize in Loader
   constructor(config) {
     super(config);
     this.pathResolver = new PathResolver();
+    this.defaultPaths = config.default.views.loader.paths;
     this.paths = config.paths || this.defaultPaths;
-
     this.resolveViewRootPaths();
     this.resolvePageTemplateRootPaths();
   }
@@ -16,13 +17,18 @@ export default class StateLoader extends Loader {
     return this.config.views;
   }
 
+  // TODO: should actually be the keys of the mounted apps!?
   get pages() {
     return this.views.pages;
   }
 
   // configure rootPath for views using server root path
   resolveViewsRootPath() {
-    this.views.rootPath = this.pathResolver.resolvePath(this.rootPath, this.views.root);
+    this.views.rootPath = this.resolvePath(this.rootPath, this.views.root);
+  }
+
+  get resolvePath() {
+    return this.pathResolver.resolvePath;
   }
 
   get resolveRoot() {
@@ -33,7 +39,11 @@ export default class StateLoader extends Loader {
     return this.config.rootPath;
   }
 
-  // configure rootPath for /statics and /pages folders
+  get assetTypes() {
+    return ['assets', 'pages'];
+  }
+
+  // configure rootPath for /assets and /pages folders
   // statics is where static assets live such as:
   // - images, fonts, css etc
   resolveViewRootPaths() {

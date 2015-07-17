@@ -1,13 +1,13 @@
 'use strict';
 
 import Setup from './setup';
-import Mounter from './application/mounter';
-import Configurator from './configurator';
-import Initializer from './initializer';
+import Mounter from '../application/mounter';
 import Settings from './settings';
-
-var extend = Object.assign;
-
+import Configurator from './configurator';
+import Runner from './runner';
+import Marko from './marko';
+import Middleware from './middleware';
+import Render from './render';
 import utils from '../utils';
 
 // all public methods return this to allow chaining!
@@ -16,14 +16,24 @@ export default class Server extends Configurator {
     this.options = options;
     this.config = {};
     this.config.utils = utils;
+
+    // TODO: allow injection!
     this.mounter = new Mounter(config);
     this.settings = new Settings(this.config, this.options).configure();
 
     this.config.current = {
       rootPath: this.rootPath
     };
-    // PROBLEM!!
-    // this.initializer = new Initializer(config).init();
+
+    this.init(config);
+  }
+
+  // TODO: allow injection!
+  init(config) {
+    this.render = new Render(config);
+    this.middleware = new Middleware(config);
+    this.marko = new Marko(config);
+    this.runner = new Runner(config);
   }
 
   app(name) {
@@ -55,6 +65,7 @@ export default class Server extends Configurator {
     return this;
   }
 
+  // TODO: should mount methods be moved to Application?
   mount(config, name) {
     this[this.mountMethod(name)](config, name);
     return this;
@@ -75,7 +86,7 @@ export default class Server extends Configurator {
   }
 
   mountConfig(config) {
-    this.config = extend(this.config, config);
+    this.config = Object.assign(this.config, config);
     return this;
   }
 }

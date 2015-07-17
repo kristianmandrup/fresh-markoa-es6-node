@@ -1,9 +1,10 @@
-export default Decorator {
+// TODO: do we really need this?
+export default class Decorator {
   constructor(obj) {
     this.obj = obj;
   }
 
   decorate(decoratorFn) {
-    return decoratorFn(obj);
+    return decoratorFn(this.obj);
   }
 }

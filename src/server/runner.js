@@ -1,6 +1,6 @@
 import Configurator from './configurator';
 
-export default class Executer extends Configurator {
+export default class Runner extends Configurator {
   start(options = {}) {
     var port = options.port || this.config.port;
     this.log('start server:', port);

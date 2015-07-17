@@ -1,5 +1,4 @@
 import Configurator from '../configurator';
-import defaults from './defaults';
 
 export default class DataConfigurator extends Configurator {
   constructor(config, props = {}) {
@@ -7,9 +6,17 @@ export default class DataConfigurator extends Configurator {
     this.data = props.data || this.defaultData[props.name] || this.defaultData;
   }
 
-  // override by subclass
   get defaultData() {
-    return {};
+    return this.defaults[this.constructor.name];
+  }
+
+  // override by subclass
+  get defaults() {
+    return this.config.defaults.state || {};
+  }
+
+  get fixture() {
+    return this.loader.fixture;
   }
 
   get retriever() {
