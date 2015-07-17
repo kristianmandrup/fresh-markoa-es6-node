@@ -4,13 +4,13 @@ export default {
 
   // load from fixture files :)
   menu: {
-    topItems: this.fixture('menus/top-menu'),
-    bottomItems: this.fixture('menus/bottom-menu')
+    topItems: 'menus/top-menu',
+    bottomItems: 'menus/bottom-menu'
   },
 
   // see fixtures/account.json
   // this should NOT be global!
   account: {
-    deposit: this.fixture('account/deposit')
+    deposit: 'account/deposit'
   }
 };

@@ -2,6 +2,8 @@
 
 The `/state` folder contains all the various types of stage made available to the app.
 
+You can subclass and customize these State classes as you like in your own app to suit your needs.
+
 ### Providers
 
 `providers.js` contains data providers grouped by page, which are promises that load data asynchronously as the page is rendered. Provider data is typically used in `<async-fragments>` in the marko template.
@@ -45,3 +47,25 @@ class DataConfigurator extends Configurator {
     this.data = props.data || this.defaultData[props.name] || this.defaultData;
   }
 ```
+
+### Providing your own default data
+
+For your own app you can easily override any of the `defaultData` getters in the state classes to point to your own default data.
+
+### Decorators
+
+For maximum flexibility it is best to use a declarative (static) style of state definition. Then you can apply whichever Decorator
+you like on this state to make it dynamic in nature. The server has some basic decorators built-in (see state/decorator).
+
+To create a custom decorator:
+
+ ```js
+function cmsContentDecorator(config, value) {
+  return config.cms.retrieve(value);
+}
+
+...
+var myStateDecorator = buildDecorator(config, cmsContentDecorator);
+```
+
+
