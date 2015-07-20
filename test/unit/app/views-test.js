@@ -13,30 +13,44 @@ describe('Views', () => {
     });
 
     describe('has config', () => {
-      describe('#pages', () => {
-        let pages = {
-          available: ['casino', 'index'],
-          active: ['index']
-        };
-        // TODO: can we make this better?
-        let config = {
-          views: {
-            pages: pages
-          }
-        };
+      it('does NOT throw', () => {
+        expect(() => new Views(config)).to.not.throw;
+      });
 
-        it('does NOT throw', () => {
-          expect(() => new Views(config)).to.not.throw;
-        });
+      let mounted = ['casino', 'index'];
+      let active = ['index'];
 
-        describe('config with pages', () => {
-          let views = new Views(config);
+      let apps = {
+        mounted: mounted,
+        active: active
+      };
+      // TODO: can we make this better?
+      let config = {
+        apps: apps
+      };
 
-          it('has pages', () => {
-            expect(views.pages).to.eql(pages);
-          });
+      let views = new Views(config)
+
+      // fuck pages! use apps.active and apps.mounted
+      describe('#apps', () => {
+        it('has apps', () => {
+          expect(views.apps).to.eql(apps);
         });
       });
+
+      describe('#mountedApps', () => {
+        it('is mounted list', () => {
+          expect(views.mountedApps).to.eql(mounted);
+        });
+      });
+
+      describe('#activeApps', () => {
+        it('is active list', () => {
+          expect(views.mountedApps).to.eql(mounted);
+        });
+      });
+
+      // ...
     });
   });
 });
