@@ -7,10 +7,20 @@ export default class StateLoader extends BaseLoader {
   constructor(config) {
     super(config);
     this.pathResolver = new PathResolver();
-    this.defaultPaths = config.default.views.loader.paths;
     this.paths = config.paths || this.defaultPaths;
-    this.resolveViewRootPaths();
+  }
+
+  configure() {
+    this.views.rootPath = this.resolveViewRootPaths();
     this.resolvePageTemplateRootPaths();
+  }
+
+  get defaultPaths() {
+    return this.config.default ? this.defaultLoaderPaths : [];
+  }
+
+  get defaultLoaderPaths() {
+    return this.config.default('views').loader.paths;
   }
 
   get views() {
@@ -24,7 +34,7 @@ export default class StateLoader extends BaseLoader {
 
   // configure rootPath for views using server root path
   resolveViewsRootPath() {
-    this.views.rootPath = this.resolvePath(this.rootPath, this.views.root);
+    return this.resolvePath(this.rootPath, this.views.root);
   }
 
   get resolvePath() {
@@ -57,7 +67,7 @@ export default class StateLoader extends BaseLoader {
     // dynamically configure path to each page (in views)
     // allows dev to override by mounting a different path
     for (let page of this.pages.active) {
-      this.pages[page] = this.resolvePath(this.pages.rootPath, page);
+      this.pages[page].rootPath = this.resolvePath(this.pages.rootPath, page);
     }
   }
 }
