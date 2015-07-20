@@ -2,30 +2,21 @@
 
 import Setup from './setup';
 import Mounter from '../app/mounter';
-import Settings from './settings';
 import Configurator from './configurator';
+import Configuration from './configuration';
 import Runner from './runner';
 import Marko from './marko';
 import Middleware from './middleware';
 import Render from './render';
 import Routes from './routes';
-import utils from '../utils';
 
 // all public methods return this to allow chaining!
 export default class Server extends Configurator {
   constructor(config = {}, options = {}) {
     this.options = options;
-    this.config = {};
-    this.config.utils = utils;
-
+    this.config = new Configuration(config, options);
     // TODO: allow injection!
     this.mounter = new Mounter(config);
-    this.settings = new Settings(this.config, this.options).configure();
-
-    this.config.current = {
-      rootPath: this.rootPath
-    };
-
     this.init(config);
   }
 
@@ -67,14 +58,9 @@ export default class Server extends Configurator {
     return this;
   }
 
-  // TODO: should mount methods be moved to Application?
-  mount(config, name) {
-    this[this.mountMethod(name)](config, name);
+  configure(config) {
+    this.config = Object.assign(this.config, config);
     return this;
-  }
-
-  mountMethod(name) {
-    return typeof name === 'string' ? 'mountApp' : 'mountConfig';
   }
 
   mountApp(config, name) {
@@ -84,11 +70,6 @@ export default class Server extends Configurator {
 
   unmountApp(config, name) {
     this.mounter.unmount(name);
-    return this;
-  }
-
-  mountConfig(config) {
-    this.config = Object.assign(this.config, config);
     return this;
   }
 }
