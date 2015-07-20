@@ -1,18 +1,18 @@
-import Content from '../../../../src/app/state/content';
+import Data from '../../../../src/app/state/data';
 
-describe('Content', () => {
+describe('Data', () => {
   it('exists', () => {
-    expect(Content).to.not.be.undefined;
+    expect(Data).to.not.be.undefined;
   });
 
   it('is a class (constructor)', () => {
-    expect(Content).to.be.a('function');
+    expect(Data).to.be.a('function');
   });
 
   describe('empty config', () => {
     it('throws', () => {
       expect(() => {
-        let a = new Content({});
+        let a = new Data({});
         a;
       }).to.throw;
     });
@@ -24,11 +24,11 @@ describe('Content', () => {
     };
 
     it('does NOT throw', () => {
-      expect(() => new Content(contentConf)).to.not.throw;
+      expect(() => new Data(contentConf)).to.not.throw;
     });
 
     it('sets content data', () => {
-      let content = new Content(content);
+      let content = new Data(content);
       expect(content.data).to.eql(contentConf);
     });
   });
