@@ -3,7 +3,23 @@ import Configurator from '../../server/configurator';
 export default class DataConfigurator extends Configurator {
   constructor(config, props = {}) {
     super(config);
-    this.data = props.data || this.defaultData[props.name] || this.defaultData;
+    this.data = this.createDefaultData(props);
+  }
+
+  // Allowing props to be a name
+  // TODO: Refactor and cleanup, use extra utility method to branch off
+  createDefaultData(props) {
+    try {
+      let name = props;
+      let data;
+      if (typeof props === 'object') {
+        data = props.data || props;
+        name = props.name;
+      }
+      return data || this.defaultData[props.name] || this.defaultData;
+    } catch (e) {
+      return {};
+    }
   }
 
   get defaultData() {

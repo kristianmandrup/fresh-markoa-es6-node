@@ -1,20 +1,42 @@
-'use strict';
-
 import Views from '../../../src/app/views';
 
-describe('Views', function() {
+describe('Views', () => {
   it('exists', () => {
     expect(Views).to.not.be.undefined;
   });
 
-  describe('empty config', function() {
-    var views = new Views({});
-    it('has a config object', () => {
-      expect(views.config).to.eql({});
+  describe('constructor', () => {
+    describe('empty config', () => {
+      it('throws', () => {
+        expect(() => new Views({})).to.throw;
+      });
     });
 
-    it('can be configured', () => {
-      expect(() => {views.configure();}).to.throw;
+    describe('has config', () => {
+      describe('#pages', () => {
+        let pages = {
+          available: ['casino', 'index'],
+          active: ['index']
+        };
+        // TODO: can we make this better?
+        let config = {
+          views: {
+            pages: pages
+          }
+        };
+
+        it('does NOT throw', () => {
+          expect(() => new Views(config)).to.not.throw;
+        });
+
+        describe('config with pages', () => {
+          let views = new Views(config);
+
+          it('has pages', () => {
+            expect(views.pages).to.eql(pages);
+          });
+        });
+      });
     });
   });
 });
