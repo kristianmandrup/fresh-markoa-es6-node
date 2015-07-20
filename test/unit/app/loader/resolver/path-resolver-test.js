@@ -1,19 +1,27 @@
 import PathResolver from '../../../../../src/app/loader/resolver/path-resolver';
 
-describe('PathResolver', function() {
+describe('PathResolver', () => {
   it('exists', () => {
     expect(PathResolver).to.not.be.undefined;
   });
 
-  describe('instance', function() {
-    var resolver = new PathResolver({});
-    var conf = {statics: {
-      rootPath: 'assets'}
+  describe('instance', () => {
+    let resolver = new PathResolver({});
+    let conf = {
+      statics: {
+        rootPath: 'assets'
+      }
     };
 
-    describe('#rootResolver', function() {
-      it('has a config object', () => {
-        expect(resolver.rootResolver(conf, 'statics')).to.be.a('function');
+    describe('#rootResolver', () => {
+      let resolvePath = resolver.rootResolver(conf, 'statics');
+
+      it('returns a function', () => {
+        expect(resolvePath).to.be.a('function');
+      });
+
+      it('x resolves to assets/x', () => {
+        expect(resolvePath('x')).to.eql('assets/x');
       });
     });
   });

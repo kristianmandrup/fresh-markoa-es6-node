@@ -13,8 +13,9 @@ describe('Views', () => {
     });
 
     describe('has config', () => {
+      // or should it when empty??
       it('does NOT throw', () => {
-        expect(() => new Views(config)).to.not.throw;
+        expect(() => new Views({})).to.not.throw;
       });
 
       let mounted = ['casino', 'index'];
@@ -29,7 +30,7 @@ describe('Views', () => {
         apps: apps
       };
 
-      let views = new Views(config)
+      let views = new Views(config);
 
       // fuck pages! use apps.active and apps.mounted
       describe('#apps', () => {

@@ -2,7 +2,7 @@ import ViewsResolver from './views-resolver';
 
 export default class AppViewPathsResolver extends ViewsResolver {
   constructor(config) {
-    super(config)
+    super(config);
   }
 
   // configure rootPath for /assets and /pages folders
@@ -23,7 +23,7 @@ export default class AppViewPathsResolver extends ViewsResolver {
   }
 
   // TODO: fix
-  // not sure if we should use config.rootPath 
+  // not sure if we should use config.rootPath
   // or defaultViews.rootPath
   get resolveRoot() {
     return this.pathResolver.rootResolver(this.defaultViews, this.defaultViews.rootPath);

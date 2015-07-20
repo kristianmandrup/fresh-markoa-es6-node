@@ -1,18 +1,18 @@
 import {buildDecorator, storeDecorator, providerDecorator} from '../../../../../src/app/state/decorator/decorators';
 
-describe('#buildDecorator', function() {
+describe('#buildDecorator', () => {
   it('exists', () => {
     expect(buildDecorator).to.not.be.undefined;
   });
 });
 
-describe('#storeDecorator', function() {
+describe('#storeDecorator', () => {
   it('exists', () => {
     expect(storeDecorator).to.not.be.undefined;
   });
 });
 
-describe('#providerDecorator', function() {
+describe('#providerDecorator', () => {
   it('exists', () => {
     expect(providerDecorator).to.not.be.undefined;
   });

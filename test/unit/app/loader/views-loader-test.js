@@ -1,7 +1,7 @@
 import ViewsLoader from '../../../../src/app/loader/views-loader';
-import PathResolver from '../../../../src/app/loader/views/path-resolver';
+import PathResolver from '../../../../src/app/loader/resolver/path-resolver';
 
-describe('ViewsLoader', function() {
+describe('ViewsLoader', () => {
   it('exists', () => {
     expect(ViewsLoader).to.not.be.undefined;
   });
@@ -55,11 +55,11 @@ describe('ViewsLoader', function() {
     });
 
     describe('#resolvePageTemplateRootPaths', () => {
-      let oldIndexRootPath = loader.pages.index.rootPath;
+      let oldIndexRootPath = loader.views.pages.index.rootPath;
 
       it('resolves rootPath for each active page', () => {
         loader.resolvePageTemplateRootPaths();
-        expect(loader.pages.index.rootPath).to.not.eql(oldIndexRootPath);
+        expect(loader.views.pages.index.rootPath).to.not.eql(oldIndexRootPath);
       });
     });
   });

@@ -1,6 +1,6 @@
 import Mounter from '../../../src/app/mounter';
 
-describe('Mounter', function() {
+describe('Mounter', () => {
   it('exists', () => {
     expect(Mounter).to.not.be.undefined;
   });

@@ -1,8 +1,6 @@
-'use strict';
-
 import utils from '../../src/utils';
 
-describe('utils', function() {
+describe('utils', () => {
   it('exists', () => {
     expect(utils).to.not.be.undefined;
   });
