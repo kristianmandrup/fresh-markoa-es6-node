@@ -1,8 +1,8 @@
-'use strict';
-
 import Loader from '../../../src/app/loader';
+import StateLoader from '../../../src/app/loader/state-loader';
+import ViewsLoader from '../../../src/app/loader/views-loader';
 
-describe('Loader', function() {
+describe('Loader', () => {
   it('exists', () => {
     expect(Loader).to.not.be.undefined;
   });
@@ -11,13 +11,36 @@ describe('Loader', function() {
     expect(Loader).to.be.a('function');
   });
 
-  describe('empty config', function() {
-    var loader = new Loader({});
+  describe('constructor', () => {
+    describe('empty config', () => {
+      var loader = new Loader({});
 
-    it('has config', () => {
-      // throw util.inspect(routes.config);
-      expect(loader.config).to.be.a('object');
-      expect(loader.config).to.eql({});
+      it('has config', () => {
+        expect(loader.config).to.eql({});
+      });
+    });
+  });
+
+  describe('static', () => {
+    describe('#createFrom', () => {
+      describe('state', () => {
+        let conf = {
+          state: 'content'
+        };
+        it('creates state loader', () => {
+          expect(Loader.createFrom(conf)).to.be.a(StateLoader);
+        });
+      });
+
+      describe('views', () => {
+        let conf = {
+          views: 'page'
+        };
+
+        it('creates views loader', () => {
+          expect(Loader.createFrom(conf)).to.be.a(ViewsLoader);
+        });
+      });
     });
   });
 });

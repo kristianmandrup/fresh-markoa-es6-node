@@ -1,9 +1,6 @@
-'use strict';
-
 import State from '../../../src/app/state';
 
-// TODO: Redo!!! deprecated design!
-describe('State', function() {
+describe('State', () => {
   it('exists', () => {
     expect(State).to.not.be.undefined;
   });
@@ -12,7 +9,7 @@ describe('State', function() {
     expect(State).to.be.a('function');
   });
 
-  describe('empty config', function() {
+  describe('empty config', () => {
     it('throws', () => {
       expect(() => {
         var a = new State({});
@@ -21,23 +18,21 @@ describe('State', function() {
     });
   });
 
-  describe('pages config with string', function() {
-    it('throws', () => {
-      var badPagesConf = {pages: 'xyz'};
-      expect(() => {
-        var a = new State(badPagesConf);
-        a;
-      }).to.throw;
-    });
-  });
+  describe('content configuration', () => {
+    let content = {
+      x: 2
+    };
+    let contentConf = {
+      content: content
+    };
 
-  describe('pages config with active list', function() {
-    it('does not throw', () => {
-      var conf = {pages: {active: ['index']}};
-      expect(() => {
-        var a = new State(conf);
-        a;
-      }).to.not.throw;
+    it('does NOT throw', () => {
+      expect(() => new State(contentConf)).to.not.throw;
+    });
+
+    it('sets content data', () => {
+      let state = new State(contentConf);
+      expect(state.content.data).to.eql(content);
     });
   });
 });

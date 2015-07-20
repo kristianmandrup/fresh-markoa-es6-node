@@ -2,8 +2,11 @@
 
 // TODO: Refactor to use View loader
 export default class Views {
-  constructor(config) {
-    this.config = config;
+  constructor(config = {}) {
+    if (typeof config !== 'object') {
+      throw `Views must be constructed with view Object, was: ${config}`;
+    }
+    this.pages = config.pages || config.views.pages;
   }
 
   configure() {
@@ -25,13 +28,5 @@ export default class Views {
     this.pages.findTemplate = (template) => {
       return this.pages[template];
     };
-  }
-
-  get views() {
-    return this.config.views;
-  }
-
-  get pages() {
-    return this.views.pages;
   }
 }
