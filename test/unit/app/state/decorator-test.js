@@ -1,4 +1,4 @@
-import Decorator from '../../../src/app/loader/views-loader';
+import Decorator from '../../../../src/app/state/decorator';
 
 describe('Decorator', function() {
   it('exists', () => {

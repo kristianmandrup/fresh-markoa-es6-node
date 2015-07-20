@@ -1,4 +1,4 @@
-import StateLoader from '../../../src/app/loader/state-loader';
+import StateLoader from '../../../../src/app/loader/state-loader';
 
 describe('StateLoader', function() {
   it('exists', () => {

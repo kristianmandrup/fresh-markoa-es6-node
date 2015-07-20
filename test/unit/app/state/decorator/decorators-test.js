@@ -1,4 +1,4 @@
-import {buildDecorator, storeDecorator, providerDecorator} from '../../../src/app/state/decorator/decorators';
+import {buildDecorator, storeDecorator, providerDecorator} from '../../../../../src/app/state/decorator/decorators';
 
 describe('#buildDecorator', function() {
   it('exists', () => {
