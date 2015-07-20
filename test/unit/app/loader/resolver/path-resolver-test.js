@@ -1,4 +1,4 @@
-import PathResolver from '../../../../../src/app/loader/views/path-resolver';
+import PathResolver from '../../../../../src/app/loader/resolver/path-resolver';
 
 describe('PathResolver', function() {
   it('exists', () => {
