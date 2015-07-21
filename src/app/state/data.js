@@ -1,13 +1,17 @@
 import Configurator from '../../server/configurator';
 
 export default class Data extends Configurator {
-  constructor(config, props = {}) {
+  constructor(config) {
     super(config);
-    this.config.state.data = this.createDefault(props);
   }
 
+  configure(state, props = {}) {
+    state.data = this.createDefaultData(props);
+  }
+
+  // TODO: Refactor and cleanup, use extra utility
+  // method to branch off
   // Allowing props to be a name
-  // TODO: Refactor and cleanup, use extra utility method to branch off
   createDefaultData(props) {
     try {
       let name = props;
@@ -31,23 +35,23 @@ export default class Data extends Configurator {
     return this.config.defaults.state || {};
   }
 
-  get fixture() {
-    return this.loader.fixture;
-  }
-
-  get retriever() {
-    return this.utils.retriever;
-  }
-
-  get utils() {
-    return this.config.utils;
-  }
-
   get loader() {
     return this.current.loader;
   }
 
   get current() {
     return this.config.current;
+  }
+
+  get fixture() {
+    return this.loader.fixture;
+  }
+
+  get utils() {
+    return this.config.utils;
+  }
+
+  get retriever() {
+    return this.utils.retriever;
   }
 }

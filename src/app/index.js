@@ -1,4 +1,4 @@
-import Configurator from '../configurator';
+import Configurator from '../server/configurator';
 import State from './state';
 import Views from './views';
 
@@ -8,11 +8,12 @@ import Views from './views';
 // - custom state
 
 export default class Application extends Configurator {
+  // TODO: must validate config
   constructor(config, name) {
     super(config);
     this.name = name;
 
-    this.createDefaults(config);
+    // this.createDefaults(config);
     this.createViews(config);
     this.createState(config);
   }

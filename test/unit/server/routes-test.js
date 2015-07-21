@@ -1,6 +1,3 @@
-'use strict';
-
-// import util from 'util';
 import Routes from '../../../src/server/routes';
 
 describe('Routes', function() {
