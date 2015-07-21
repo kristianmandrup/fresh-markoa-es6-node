@@ -2,7 +2,7 @@ import util from 'util';
 
 export default class Configurator {
   constructor(config = {}) {
-    this.config = config;
+    this.config = config || {};
     this.validate();
   }
 

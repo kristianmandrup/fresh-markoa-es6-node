@@ -1,31 +1,33 @@
-'use strict';
-
-import Content from './content';
-import Globals from './globals';
-import Pages from './pages';
-import Providers from'./providers';
-import Sessions from'./sessions';
-import Stores from'./stores';
 import Configurator from '../../server/configurator';
+import Data from './data';
 
 export default class State extends Configurator {
-  constructor(config) {
+  constructor(config, data) {
     super(config);
+    if (data) {
+      this.configure(data);
+    }
   }
 
-  // will all use defaults since missing second argument
-  static createDefault(config, name) {
-    var props = {
-      app: name
-    };
-    var state = new State(config);
-    state.content = new Content(config, props);
-    state.pages = new Pages(config, props);
-    state.sessions = new Sessions(config, props);
+  configure(data) {
+    this.data = new Data(this.config).configure(this, data);
+  }
 
-    state.globals = new Globals(config, props);
-    state.providers = new Providers(config, props);
-    state.stores = new Stores(config, props);
-    return state;
+  merge(data) {
+    Object.assign(this.data, data);
+  }
+
+  mount(data, name) {
+    if (typeof name !== 'string') {
+      throw `Must mount data Object on named key, was: ${name}`;
+    }
+    Object.assign(this.data[name], data);
+  }
+
+  unmount(name) {
+    if (typeof name !== 'string') {
+      throw `Must unmount data Object by named key, was: ${name}`;
+    }
+    delete this.data[name];
   }
 }
