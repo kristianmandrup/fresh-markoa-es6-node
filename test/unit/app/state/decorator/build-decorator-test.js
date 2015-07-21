@@ -7,13 +7,12 @@ describe('#buildDecorator', () => {
   });
 
   it('can build a decorator function', () => {
+    let conf = {};
     let loader    = new Loader(conf);
-
     let myDecorator = (x) => {
       return `${x}-called`;
     };
-
-    let decorator = buildDecorator(loader, myDecorator)
+    let decorator = buildDecorator(loader, myDecorator);
 
     expect(decorator('v')).to.eql('v-called');
   });
