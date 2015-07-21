@@ -1,9 +1,9 @@
 import Configurator from '../../server/configurator';
 
-export default class DataConfigurator extends Configurator {
+export default class Data extends Configurator {
   constructor(config, props = {}) {
     super(config);
-    this.data = this.createDefaultData(props);
+    this.config.state.data = this.createDefault(props);
   }
 
   // Allowing props to be a name

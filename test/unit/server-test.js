@@ -3,7 +3,7 @@
 /* global Server */
 import Server from '../../src/index';
 
-describe('Server', function() {
+describe('Server', () => {
   it('exists', () => {
     expect(Server).to.not.be.undefined;
   });
@@ -23,7 +23,7 @@ describe('Server', function() {
       expect(server.mount).to.not.be.undefined;
     });
 
-    describe('#mount', function() {
+    describe('#mount', () => {
       it('mounts a single config on mounted', () => {
         var casinoConf = {a: 2};
         server.mount(casinoConf, 'casino');
@@ -31,7 +31,7 @@ describe('Server', function() {
       });
     });
 
-    describe.skip('#setup', function() {
+    describe.skip('#setup', () => {
       it('configures defaults', () => {
         server.setup();
         expect(server.config.defaults).to.not.eql({});

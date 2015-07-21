@@ -1,8 +1,8 @@
-import ViewsResolver from './base-views-resolver';
+import ViewsResolver from './views-resolver';
 
 export default class AppViewPathsResolver extends ViewsResolver {
   constructor(config) {
-    super(config)
+    super(config);
   }
 
   // dynamically configure view path (templates root folder) for each app

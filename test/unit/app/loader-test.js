@@ -13,7 +13,7 @@ describe('Loader', () => {
 
   describe('constructor', () => {
     describe('empty config', () => {
-      var loader = new Loader({});
+      let loader = new Loader({});
 
       it('has config', () => {
         expect(loader.config).to.eql({});
